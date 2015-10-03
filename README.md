@@ -1,2 +1,2 @@
-# tibor.szasz.hu
-Personal portfolio
+# About
+Personal portfolio for http://tibor.szasz.hu

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		a.tooltip {
+			position: relative;
+		}
+
+		/**
+		 * Arrow head
+		 */
+		a.tooltip::after {
+			content: '';
+			position:absolute;
+			z-index: 666;
+			top: 15px;
+			left: 13px;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 25px 25px 0px;
+			border-color: transparent transparent #007bff transparent;
+			opacity: 0;
+			transition: opacity 0.4s ease-out; 
+			transform: skewX(45deg);
+		}
+
+		/**
+		 * Tooptip body
+		 */
+		a.tooltip::before {
+			content: attr(title) ;   
+			position:absolute;
+			z-index: 667;
+			top: 40px;
+			left: 0px;
+			background:#007bff;
+			color:#e0e0e0;
+			padding: 1em;
+			line-height: 24px;
+			width: 300px;
+			overflow: hidden;
+			opacity: 0;
+			transition: opacity 0.4s ease-out; 
+		}
+	
+		a.tooltip:hover::before {
+			opacity: 1;
+			overflow: visible;
+		}
+
+		a.tooltip:hover::after {
+			opacity: 1;
+			overflow: visible;
+		}
+	</style>
+</head>
+<body>
+	<a href="#" class="tooltip" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo">This is the link</a>
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+$offset: 0.35em;
+
+.tooltip {
+	position: relative;
+}
+
+/**
+ * Arrow head
+ */
+.tooltip::after {
+	content: '';
+	position:absolute;
+	z-index: 666;
+	top: 1em + $offset;
+	left: -2000px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 25px 25px 0px;
+	border-color: transparent transparent $higlight-text transparent;
+	opacity: 0;
+	transition: opacity 0.4s ease-out; 
+	transform: skewX(45deg);
+}
+
+/**
+ * Tooptip body
+ */
+.tooltip::before {
+	content: attr(title); 
+	position:absolute;
+	z-index: 667;
+	width: 300px;
+	top: 2.5em + $offset;
+	left: -2000px;
+	padding: 0.5em;
+	line-height: 24px;
+	opacity: 0;
+	background: $higlight-text;
+	color: #fff;
+	font-style: normal;
+	@include setType(3, $ms-down1);
+	transition: opacity 0.4s ease-out; 
+}
+
+.tooltip:hover::before {
+	opacity: 1;
+	left: 0px;
+}
+
+.tooltip:hover::after {
+	opacity: 1;
+	left: 13px;
+}

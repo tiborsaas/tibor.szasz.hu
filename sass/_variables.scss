@@ -1,0 +1,26 @@
+
+// Main margin used for the sidebars
+// rather a virtual margin, because grids can be pulled
+// and pushed to left and right
+$main-margin: 7em;
+$shallow-margin: $main-margin / 3;
+
+// Theme colors
+$header-bg: #262262;
+$higlight-text: #ef413d;
+
+// Settings for Typesettings
+$font-sans: "open sans", sans-serif;
+$font-sans: "open sans", sans-serif;
+$font-serif: Rosario, sans-serif;
+$font-mono: Rosario, monospace;
+$text-color: #000;
+
+$base-vertical-unit: 6px;
+$base-line-multi: 4;
+$base-font-size: 16px;
+
+$ms-ratio: 1.414;
+$paragraph-indent: false;
+$paragraph-justify: false;
+$load-typesetted: true;

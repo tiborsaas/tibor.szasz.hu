@@ -203,13 +203,9 @@
 
 	img {
 		width: 100%;
-		filter: saturate(0);
-		transition: filter 1s;
-		transition: -webkit-filter 1s;
 	}
 
 	img:hover {
-		filter: saturate(1);
 	}
 
 	span.tech {

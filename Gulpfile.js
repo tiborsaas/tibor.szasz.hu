@@ -31,6 +31,13 @@ gulp.task('sass', function () {
 /**
  * Compile JS files
  */
+gulp.task('js:dev', function () {
+	gulp.src('./js/*.js')
+	.pipe(uglify())
+	.pipe(concat('flat.js'))
+	.pipe(gulp.dest('./dist'));
+});
+
 gulp.task('js', function () {
 	gulp.src('./js/*.js')
 	.pipe(uglify())
@@ -43,8 +50,10 @@ gulp.task('js', function () {
  *  - compiles sass
  *  - watches sass
  */
-gulp.task('default', ['express','sass','js'], function() {
+gulp.task('default', ['sass','js'], function() {
+
 	console.log('Serving things on http://localhost:4000');
+
 	// Peek for changes
 	gulp.watch('./sass/**/*.scss', ['sass']);
 	gulp.watch('./js/**/*.js', ['js']);

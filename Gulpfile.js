@@ -50,7 +50,7 @@ gulp.task('js', function () {
  *  - compiles sass
  *  - watches sass
  */
-gulp.task('default', ['sass','js'], function() {
+gulp.task('default', ['express','sass','js'], function() {
 
 	console.log('Serving things on http://localhost:4000');
 

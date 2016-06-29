@@ -148,11 +148,18 @@
  */
 .intermediate-header{
 	min-height: 0;
-	background: $header-bg;
 	padding-top: 2em;
 	padding-bottom: 2em;
 
-	h2{
+	&.pulled.left {
+		padding-left: 0;
+	}
+
+	&.pulled.right {
+		padding-right: 0;
+	}
+
+	h2 {
 		font-style: italic;
 		font-family: "open sans", sans-serif;
 		font-weight: 800;
@@ -160,11 +167,10 @@
 		background-color: $higlight-text;
 		color: #fff;
 		letter-spacing: -6px;
-		@include setType(24, $ms-up6);
+		@include setType(22, $ms-up6);
 		padding-left: 0.05em;
 		border-style: none;
 	}
-	@include rhythmBorderBottom(2px, 10, $ms-up5);
 
 	@include mobile {
 		margin-left: 1em;
@@ -191,6 +197,15 @@
 }
 
 /**
+ * Intro texts
+ */
+.things, .work-item {
+	p {
+		padding-right: 2rem;		
+	}
+}
+
+/**
  * Work items
  */
 .work-item{
@@ -202,7 +217,7 @@
 	}
 
 	img {
-		width: 100%;
+		width: calc( 100% - 18px );
 	}
 
 	img:hover {
@@ -215,9 +230,60 @@
 
 	.work-header {
 		@include setType(80, $ms-up1);
-		@include rhythmBorderBottom(2px, 1, $ms-up2);
 		border-bottom-color: #000;
 		border-bottom-style: solid;
+	}
+
+	&.client {
+		a {
+			border: none;
+			position: relative;
+			display: block;
+
+			&:before {
+				content: 'Visit site';
+				position: absolute;
+				width: calc( 100% - 18px );
+				height: 100%;
+				display: block;
+				background: rgba(0,0,0,0.5);
+				z-index: 12;
+				transition: all 0.4s ease;
+				text-align: center;
+				opacity: 0;
+				color: #fff;
+				line-height: 5.7em;
+				text-transform: uppercase;
+				font-size: 2em;
+			}
+
+			&:hover {
+				&:before {
+					opacity: 1;
+				}
+			}
+		}
+
+		h4 {
+			margin-top: 0.8em;
+			font-weight: 800;
+			font-family: 'Open sans' !important;
+		}
+
+		p {
+			@include setType(5, $ms-up1);
+			margin-bottom: 0.8em;
+
+			&.tech {
+				font-size: 1.1em;
+				margin-bottom: 2em;
+			}
+		}
+
+		img {
+			display: block;
+			margin-bottom: 0em;
+		}
 	}
 }
 

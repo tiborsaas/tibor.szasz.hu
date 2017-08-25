@@ -4,12 +4,12 @@
  */
 
 body{
-	background: #E6EBE0;
-	/*background: url(../img/paper-texture.jpg);*/
+	background: #F7F3EA;
+	margin: 0 2rem;
+	font-family: $font-sans;
 }
 
 a {
-	color: lighten($header-bg, 30);
 	text-decoration: none;
 	border-bottom: 1px $header-bg dotted;
 }
@@ -40,7 +40,7 @@ mark{
 	border-bottom: 1px dashed #fff;
 	padding-bottom: 3px;
 	background: none;
-	color: #ccc;
+	color:$higlight-text;
 	font-style: italic;
 	cursor: help;
 }

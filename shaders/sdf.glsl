@@ -16,16 +16,16 @@ void main(){
   st = st *2.-1.;
 
   // Make the distance field
-  d = length( min(abs(st), .35) );
-  //d = length( min(abs(st)-.3,0.) );
+  // d = length( min(abs(st), .35) );
+  d = length( min(abs(st)-.3,0.) );
   //d = length( max(abs(st)-.3,0.) );
 
   // Visualize the distance field
-  gl_FragColor = vec4(vec3(fract(d*6.000)),1.0);
+  //gl_FragColor = vec4(vec3(fract(d*10.000)),1.0);
 
   // Drawing with the distance field
-  //gl_FragColor = vec4(vec3( step(.3,d) ),1.0);
+  gl_FragColor = vec4(vec3( step(.3,d) ),1.0);
   //gl_FragColor = vec4(vec3( step(.3,d) * step(d,0.384)),1.008);
   float repeat = 27.568;
-  gl_FragColor = vec4(vec3( smoothstep(.3,.4,fract(d*repeat))* smoothstep(.6,.5,fract(d*repeat))) ,1.0);
+  //gl_FragColor = vec4(vec3( smoothstep(.3,.4,fract(d*repeat))* smoothstep(.6,.5,fract(d*repeat))) ,1.0);
 }

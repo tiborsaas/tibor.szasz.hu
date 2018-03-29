@@ -131,7 +131,7 @@ float t(vec2 from, vec2 to, vec2 p)
 //-----------------------------------------------------------------------------------
 vec2 r(vec2 fragCoord)
 {
-	vec2 pos = fragCoord.xy/iResolution.xy;
+	vec2 pos = fragCoord.xy/u_resolution.xy;
 	pos.y -= caret.y;
 	pos.x -= font_spacing*caret.x;
 	return pos;
@@ -178,7 +178,7 @@ vec2 kaleido(vec2 uv)
 vec2 transform(vec2 at)
 {
 	vec2 v;
-	float th = .02 * iTime;
+	float th = .02 * u_time;
 	v.x = at.x * cos(th) - at.y * sin(th) - .2 * sin(th);
 	v.y = at.x * sin(th) + at.y * cos(th) + .2 * cos(th);
 	return v;
@@ -207,9 +207,9 @@ float getText( vec2 coord )
 {
     float tex = .0;
 
-    if( iTime < 3. )
+    if( u_time < 3. )
     {
-        t_time = iTime;
+        t_time = u_time;
         newline();
         tex += H(r(coord)); add();
         tex += I(r(coord)); space();
@@ -221,9 +221,9 @@ float getText( vec2 coord )
         newline();
     }
 
-    if( iTime > 3. && iTime < 8. )
+    if( u_time > 3. && u_time < 8. )
     {
-        t_time = iTime - 3.;
+        t_time = u_time - 3.;
         newline();
         tex += H(r(coord)); add();
         tex += A(r(coord)); add();
@@ -250,9 +250,9 @@ float getText( vec2 coord )
     }
 
     // Logo
-    if( iTime > 8. )
+    if( u_time > 8. )
     {
-        t_time = iTime - 8.;
+        t_time = u_time - 8.;
         newline();
         tex += C(r(coord)); add();
         tex += H(r(coord)); add();
@@ -279,15 +279,15 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     /**
      * basic setup
      */
-	vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 uv = fragCoord.xy / u_resolution.xy;
 	uv.x = mix(-1.0, 1.0, uv.x);
 	uv.y = mix(-1.0, 1.0, uv.y);
-	uv.y *= iResolution.y / iResolution.x;
+	uv.y *= u_resolution.y / u_resolution.x;
 
     float distSpeed = .05;
-    float k = 1.0 * sin( iTime * distSpeed * .9 );
-    float kcube = .5 * sin( iTime * distSpeed );
-    float off = .1 * sin( iTime * distSpeed * .5 );
+    float k = 1.0 * sin( u_time * distSpeed * .9 );
+    float kcube = .5 * sin( u_time * distSpeed );
+    float off = .1 * sin( u_time * distSpeed * .5 );
 
     /**
      * kaleidoscope
@@ -296,13 +296,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     //vec2 kaleidUV = transform(kaleido(lensedUV)) * 4.0;
     vec2 kaleidUV = transform(kaleido(uv)) * 4.0;
     vec2 lensedUV = lens_distortion( kaleidUV, k + off, kcube );
-    vec4 kaleTex = texture(iChannel0, lensedUV); // < update here uv
+    vec4 kaleTex = texture2D(u_tex0, lensedUV); // < update here uv
 
     /**
      * dithering
      */
     vec3 rgb = kaleTex.rgb;
-    vec3 oldcolor = rgb + (rgb * texture(iChannel1, (mod(fragCoord, 8.0) / 8.0)).rgb);
+    vec3 oldcolor = rgb + (rgb * texture2D(u_tex1, (mod(fragCoord, 8.0) / 8.0)).rgb);
     vec3 dithered = floor(oldcolor);
     dithered.g = .0;
     dithered.b = .261;
@@ -317,14 +317,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	d = getText(fragCoord);
 
     // Vertical pixel lines
-    d = clamp(d* (.75+sin(fragCoord.x*PI*.5-iTime*4.3)*.5), 0.0, 1.0);
+    d = clamp(d* (.75+sin(fragCoord.x*PI*.5-u_time*4.3)*.5), 0.0, 1.0);
 
     dithered += vec3(d*.5, d, d*.85);
 
     /**
      * vignette fx
      */
-	vec2 xy = fragCoord.xy / iResolution.xy;
+	vec2 xy = fragCoord.xy / u_resolution.xy;
 	dithered *= vec3(.4, .4, .4) + 0.5*pow(100.0*xy.x*xy.y*(1.0-xy.x)*(1.0-xy.y), .4 );
 
     fragColor = vec4(dithered, 1.0);

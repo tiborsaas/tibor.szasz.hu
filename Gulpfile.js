@@ -2,7 +2,8 @@
  * GULP tasks
  * @author Tibor Szász
  */
-var gulp = require('gulp'),
+const fs = require('fs'),
+	gulp = require('gulp'),
 	sass = require('gulp-sass');
 	uglify = require('gulp-uglifyes');
 	concat = require('gulp-concat');
@@ -12,8 +13,8 @@ var gulp = require('gulp'),
  * Launch static server
  */
 gulp.task('express', function() {
-	var express = require('express');
-	var app = express();
+	const express = require('express');
+	const app = express();
 	app.use(express.static(__dirname));
 	app.listen(4000);
 });
@@ -44,6 +45,11 @@ gulp.task('js', function () {
 	.pipe(concat('flat.js'))
 	.pipe(gulp.dest('./dist'));
 });
+
+gulp.task('publish', ['sass','js'], function() {
+	console.log('Assets generated');
+});
+
 
 /**
  * And the main entry point:

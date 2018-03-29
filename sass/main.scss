@@ -6,14 +6,14 @@
 @import 'responsive';
 
 header {
-	background: rgb(255, 238, 0) url(../temp/tumblr_ok0cs4jhpl1sb5osho1_500.gif) no-repeat center center;
-	background-size: cover;
-
 	h1 {
 		background: #000;
 		color:rgb(255, 238, 0);
 		line-height: 3rem;
 		font-size: 4rem;
 		margin: 0;
+		position: absolute;
+		left: 2rem;
+		top: 2rem;
 	}
 }

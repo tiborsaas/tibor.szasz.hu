@@ -1,3 +1,11 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform sampler2D u_tex0;
+uniform sampler2D u_tex1;
 
 //-----------------------------------------------------------------------------------
 
@@ -129,9 +137,9 @@ float t(vec2 from, vec2 to, vec2 p)
 
 
 //-----------------------------------------------------------------------------------
-vec2 r(vec2 fragCoord)
+vec2 r(vec2 coord)
 {
-	vec2 pos = fragCoord.xy/u_resolution.xy;
+	vec2 pos = gl_FragCoord.xy/u_resolution.xy;
 	pos.y -= caret.y;
 	pos.x -= font_spacing*caret.x;
 	return pos;
@@ -274,12 +282,12 @@ float getText( vec2 coord )
     return tex;
 }
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void main()
 {
     /**
      * basic setup
      */
-	vec2 uv = fragCoord.xy / u_resolution.xy;
+	vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 	uv.x = mix(-1.0, 1.0, uv.x);
 	uv.y = mix(-1.0, 1.0, uv.y);
 	uv.y *= u_resolution.y / u_resolution.x;
@@ -302,7 +310,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
      * dithering
      */
     vec3 rgb = kaleTex.rgb;
-    vec3 oldcolor = rgb + (rgb * texture2D(u_tex1, (mod(fragCoord, 8.0) / 8.0)).rgb);
+    vec3 oldcolor = rgb + (rgb * texture2D(u_tex1, (mod(gl_FragCoord.xy, 8.0) / 8.0)).rgb);
     vec3 dithered = floor(oldcolor);
     dithered.g = .0;
     dithered.b = .261;
@@ -314,18 +322,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	caret = caret_origin;
 
 	// Build up the text
-	d = getText(fragCoord);
+	d = getText(gl_FragCoord.xy);
 
     // Vertical pixel lines
-    d = clamp(d* (.75+sin(fragCoord.x*PI*.5-u_time*4.3)*.5), 0.0, 1.0);
+    d = clamp(d* (.75+sin(gl_FragCoord.x*PI*.5-u_time*4.3)*.5), 0.0, 1.0);
 
     dithered += vec3(d*.5, d, d*.85);
 
     /**
      * vignette fx
      */
-	vec2 xy = fragCoord.xy / u_resolution.xy;
+	vec2 xy = gl_FragCoord.xy / u_resolution.xy;
 	dithered *= vec3(.4, .4, .4) + 0.5*pow(100.0*xy.x*xy.y*(1.0-xy.x)*(1.0-xy.y), .4 );
 
-    fragColor = vec4(dithered, 1.0);
+    gl_FragColor = vec4(dithered, 1.0);
 }

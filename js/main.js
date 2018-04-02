@@ -10,14 +10,21 @@ class UI {
 
 	initShader() {
 		const canvas = document.querySelector('canvas');
-		canvas.style.width = '100%';
-		canvas.width  = canvas.offsetWidth;
-		canvas.height = window.innerHeight;
+			canvas.style.width = '100%';
+			canvas.width  = canvas.offsetWidth;
+			canvas.height = window.innerHeight;
 
 		this.canvas = canvas;
-		this.shader = new GlslCanvas(this.canvas);
-		this.shader.setUniform('u_tex0', 'img/shader/texture.jpg');
-		this.shader.setUniform('u_tex1', 'img/shader/8x8-bayer.png');
+
+		const shader = new GlslCanvas(this.canvas);
+			shader.uniformTexture('u_tex0', 'img/shader/texture.jpg',{
+				repeat: true
+			});
+			shader.uniformTexture('u_tex1', 'img/shader/8x8-bayer.png',{
+				repeat: true
+			});
+
+		this.shader = shader;
 	}
 }
 

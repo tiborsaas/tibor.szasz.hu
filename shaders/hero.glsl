@@ -9,9 +9,9 @@ uniform sampler2D u_tex1;
 
 //-----------------------------------------------------------------------------------
 
-#define font_size 20.
-#define font_spacing .05
-#define STROKEWIDTH 0.05
+#define font_size 25.
+#define font_spacing .04
+#define STROKEWIDTH 0.03
 #define PI 3.14159265359
 
 #define A_ vec2(0.,0.)
@@ -124,6 +124,9 @@ float when_lt(float x, float y)
 	return max(sign(y - x), 0.0);
 }
 
+float when_eq(float x, float y) {
+    return 1.0 - abs(sign(x - y));
+}
 
 //-----------------------------------------------------------------------------------
 float count = 0.0;
@@ -139,7 +142,7 @@ float t(vec2 from, vec2 to, vec2 p)
 //-----------------------------------------------------------------------------------
 vec2 r(vec2 coord)
 {
-	vec2 pos = gl_FragCoord.xy/u_resolution.xy;
+	vec2 pos = coord.xy/u_resolution.xy;
 	pos.y -= caret.y;
 	pos.x -= font_spacing*caret.x;
 	return pos;
@@ -176,7 +179,6 @@ vec2 kaleido(vec2 uv)
 
 	th = abs(mod(th + f/4.0, f) - f/2.0) / (1.0 + r);
 	float th2 = sin(th * 6.283 / f);
-
     th += th2;
 
 	return vec2(cos(th), sin(th)) * r * .1;
@@ -186,7 +188,7 @@ vec2 kaleido(vec2 uv)
 vec2 transform(vec2 at)
 {
 	vec2 v;
-	float th = .02 * u_time;
+	float th = .009 * u_time;
 	v.x = at.x * cos(th) - at.y * sin(th) - .2 * sin(th);
 	v.y = at.x * sin(th) + at.y * cos(th) + .2 * cos(th);
 	return v;
@@ -199,11 +201,8 @@ vec2 lens_distortion( vec2 uv, float k, float kcube )
     float r2 = t.x * t.x + t.y * t.y;
 	float f = 0.;
 
-    if( kcube == 0.0){
-        f = 1. + r2 * k;
-    }else{
-        f = 1. + r2 * ( k + kcube * sqrt( r2 ) );
-    }
+    float e = ( k + kcube * sqrt( r2 ) ) * when_eq(kcube, 0.);
+    f = 1. + r2 * k * e;
 
     vec2 nUv = f * t;
     nUv.y = nUv.y;
@@ -215,70 +214,29 @@ float getText( vec2 coord )
 {
     float tex = .0;
 
-    if( u_time < 3. )
-    {
-        t_time = u_time;
-        newline();
-        tex += H(r(coord)); add();
-        tex += I(r(coord)); space();
-        tex += T(r(coord)); add();
-        tex += H(r(coord)); add();
-        tex += E(r(coord)); add();
-        tex += R(r(coord)); add();
-        tex += E(r(coord)); add();
-        newline();
-    }
+    t_time = u_time - 3.;
+    newline();
+    tex += H(r(coord)); add();
+    tex += E(r(coord)); add();
+    tex += L(r(coord)); add();
+    tex += L(r(coord)); add();
+    tex += O(r(coord)); space();
+    tex += H(r(coord)); add();
+    tex += U(r(coord)); add();
+    tex += M(r(coord)); add();
+    tex += A(r(coord)); add();
+    tex += N(r(coord)); add();
+    newline();
+    tex += T(r(coord)); add();
+    tex += I(r(coord)); add();
+    tex += B(r(coord)); add();
+    tex += O(r(coord)); add();
+    tex += R(r(coord)); space();
+    tex += H(r(coord)); add();
+    tex += E(r(coord)); add();
+    tex += R(r(coord)); add();
+    tex += E(r(coord)); add();
 
-    if( u_time > 3. && u_time < 8. )
-    {
-        t_time = u_time - 3.;
-        newline();
-        tex += H(r(coord)); add();
-        tex += A(r(coord)); add();
-        tex += C(r(coord)); add();
-        tex += K(r(coord)); add();
-        tex += I(r(coord)); add();
-        tex += N(r(coord)); add();
-        tex += G(r(coord)); space();
-        tex += I(r(coord)); add();
-        tex += N(r(coord)); add();
-        newline();
-        tex += P(r(coord)); add();
-        tex += R(r(coord)); add();
-        tex += O(r(coord)); add();
-        tex += G(r(coord)); add();
-        tex += R(r(coord)); add();
-        tex += E(r(coord)); add();
-        tex += S(r(coord)); add();
-        tex += S(r(coord)); add();
-        tex += STOP(r(coord)); add();
-        tex += STOP(r(coord)); add();
-        tex += STOP(r(coord)); add();
-        tex += STOP(r(coord)); add();
-    }
-
-    // Logo
-    if( u_time > 8. )
-    {
-        t_time = u_time - 8.;
-        newline();
-        tex += C(r(coord)); add();
-        tex += H(r(coord)); add();
-        tex += E(r(coord)); add();
-        tex += E(r(coord)); add();
-        tex += R(r(coord)); add();
-        tex += S(r(coord)); add();
-        newline();
-        tex += S1(r(coord)); add();
-        tex += S2(r(coord)); add();
-        tex += S3(r(coord)); add();
-        tex += S4(r(coord)); add();
-        newline();
-        tex += UL(r(coord)); add();
-        tex += UM(r(coord)); add();
-        tex += UM(r(coord)); add();
-        tex += UR(r(coord)); add();
-    }
     return tex;
 }
 
@@ -287,12 +245,16 @@ void main()
     /**
      * basic setup
      */
+    float uvScale = 51. - 50. * smoothstep( 0., 5., u_time );
 	vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-	uv.x = mix(-1.0, 1.0, uv.x);
-	uv.y = mix(-1.0, 1.0, uv.y);
+	// uv.x = mix(-1. * uvScale, uvScale, uv.x);
+	// uv.y = mix(-1. * uvScale, uvScale, uv.y);
+    // Zoom out for debugging
+	uv.x = mix(-1., 1., uv.x);
+	uv.y = mix(-1., 1., uv.y);
 	uv.y *= u_resolution.y / u_resolution.x;
 
-    float distSpeed = .05;
+    float distSpeed = .095;
     float k = 1.0 * sin( u_time * distSpeed * .9 );
     float kcube = .5 * sin( u_time * distSpeed );
     float off = .1 * sin( u_time * distSpeed * .5 );
@@ -300,11 +262,13 @@ void main()
     /**
      * kaleidoscope
      */
-    //vec2 lensedUV = lens_distortion( uv, k + off, kcube );
-    //vec2 kaleidUV = transform(kaleido(lensedUV)) * 4.0;
+    vec2 lensedUV = lens_distortion( uv, k + off, kcube );
     vec2 kaleidUV = transform(kaleido(uv)) * 4.0;
-    vec2 lensedUV = lens_distortion( kaleidUV, k + off, kcube );
-    vec4 kaleTex = texture2D(u_tex0, lensedUV); // < update here uv
+    // vec2 kaleidUV = transform(uv);
+    // vec2 kaleidUV = transform(kaleido(uv));
+    // vec2 kaleidUV = transform(kaleido(uv)) / 2.0;
+    // vec2 lensedUV = lens_distortion( kaleidUV, k + off, kcube );
+    vec4 kaleTex = texture2D(u_tex0, kaleidUV); // < update here uv
 
     /**
      * dithering
@@ -322,12 +286,12 @@ void main()
 	caret = caret_origin;
 
 	// Build up the text
-	d = getText(gl_FragCoord.xy);
+	// d = getText(gl_FragCoord.xy);
 
     // Vertical pixel lines
-    d = clamp(d* (.75+sin(gl_FragCoord.x*PI*.5-u_time*4.3)*.5), 0.0, 1.0);
+    // d = clamp(d* (.75+sin(gl_FragCoord.x*PI*.5-u_time*4.3)*.5), 0.0, 1.0);
 
-    dithered += vec3(d*.5, d, d*.85);
+    // dithered += vec3(d*.5, d, d*.85);
 
     /**
      * vignette fx
@@ -335,5 +299,6 @@ void main()
 	vec2 xy = gl_FragCoord.xy / u_resolution.xy;
 	dithered *= vec3(.4, .4, .4) + 0.5*pow(100.0*xy.x*xy.y*(1.0-xy.x)*(1.0-xy.y), .4 );
 
+    // gl_FragColor = vec4(kaleTex);
     gl_FragColor = vec4(dithered, 1.0);
 }

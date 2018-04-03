@@ -17,12 +17,11 @@ class UI {
 		this.canvas = canvas;
 
 		const shader = new GlslCanvas(this.canvas);
-			shader.uniformTexture('u_tex0', 'img/shader/texture.jpg',{
-				repeat: true
+			shader.uniformTexture('u_tex0', 'img/shader/texture_1.jpg',{
+				repeat: true,
+				filtering: 'mipmap'
 			});
-			shader.uniformTexture('u_tex1', 'img/shader/8x8-bayer.png',{
-				repeat: true
-			});
+			shader.uniformTexture('u_tex1', 'img/shader/8x8-bayer.png');
 
 		this.shader = shader;
 	}

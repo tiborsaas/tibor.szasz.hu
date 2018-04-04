@@ -245,13 +245,13 @@ void main()
     /**
      * basic setup
      */
-    float uvScale = 51. - 50. * smoothstep( 0., 5., u_time );
+    float uvScale = 51. - 50. * smoothstep( 0., 2.5, u_time );
 	vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-	// uv.x = mix(-1. * uvScale, uvScale, uv.x);
-	// uv.y = mix(-1. * uvScale, uvScale, uv.y);
+	uv.x = mix(-1. * uvScale, uvScale, uv.x);
+	uv.y = mix(-1. * uvScale, uvScale, uv.y);
     // Zoom out for debugging
-	uv.x = mix(-1., 1., uv.x);
-	uv.y = mix(-1., 1., uv.y);
+	// uv.x = mix(-1., 1., uv.x);
+	// uv.y = mix(-1., 1., uv.y);
 	uv.y *= u_resolution.y / u_resolution.x;
 
     float distSpeed = .095;

@@ -9,11 +9,11 @@
 	box-sizing: border-box;
 }
 
+
 body{
-	background: #eee;
+	background: #fff;
 	font-family: $font-sans;
 }
-
 
 a {
 	text-decoration: none;
@@ -24,7 +24,7 @@ a:hover {
 	color: $higlight-text;
 }
 
-ul{
+ul {
 	li {
 		list-style-type: none;
 	}
@@ -42,7 +42,7 @@ ul{
 }
 
 
-mark{
+mark {
 	border-bottom: 1px dashed #fff;
 	padding-bottom: 3px;
 	background: none;
@@ -54,4 +54,21 @@ mark{
 ::selection {
 	color: $higlight-text;
 	background: darken( $header-bg, 5 );
+}
+
+
+/**
+ * HEADINGS
+ */
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+h2 {
+	font-size: 2rem;
 }

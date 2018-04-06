@@ -1,0 +1,21 @@
+header {
+	h1 {
+		color:rgb(255, 255, 255);
+		line-height: 1.5em;
+		font-size: 5rem;
+		font-weight: normal;
+		margin: 0;
+		padding: 2rem;
+		position: absolute;
+		left: 2rem;
+		top: 15rem;
+		will-change: transform;
+		transform: translateZ(0);
+
+		span {
+			display: block;
+			line-height: 1em;
+			font-size: .535em;
+		}
+	}
+}

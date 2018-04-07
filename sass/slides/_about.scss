@@ -1,16 +1,16 @@
 
-section.about.slide {
-    background: #fff;
-    flex-direction: row;
-    margin: auto;
-    align-items: stretch;
+section.about {
+    @include grid(1fr 2fr);
+
+    background: #fff url(t.jpg) no-repeat left bottom;
+    background-size: 40%;
 
     h1 {
         font-size: 8rem;
     }
 
-    article {
-        padding: 10rem 0 0 2rem;
+    article.introduction {
+        padding-top: 10rem;
 
         p {
             margin-bottom: 1rem;

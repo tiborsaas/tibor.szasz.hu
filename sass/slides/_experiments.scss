@@ -1,0 +1,49 @@
+
+section.experiments {
+    @include grid(1fr 1fr);
+
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    header {
+        @include grid(1fr 2fr);
+        grid-column: span 2;
+        margin-bottom: 3rem;
+
+        h1 {
+            text-align: center;
+            font-size: 6rem;
+            line-height: 6rem;
+
+            span {
+                display: block;
+                text-align: right;
+            }
+        }
+
+        .project {
+            padding-top: 3rem;
+
+            img, .content {
+                align-self: start;
+            }
+        }
+    }
+
+
+    .project {
+        @include grid(1fr 1fr);
+
+        img {
+            width: 100%;
+            align-self: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+    }
+}

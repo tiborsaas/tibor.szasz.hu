@@ -1,1 +1,8 @@
 
+@mixin grid ($ratios) {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-template-columns: $ratios;
+}

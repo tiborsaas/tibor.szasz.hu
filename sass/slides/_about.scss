@@ -4,9 +4,16 @@ section.about {
 
     background: #fff url(t.jpg) no-repeat left bottom;
     background-size: 40%;
+    position: relative;
 
     h1 {
         font-size: 8rem;
+    }
+
+    canvas {
+        position: absolute;
+        right: 4rem;
+        bottom: 0;
     }
 
     article.introduction {

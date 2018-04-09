@@ -1,0 +1,59 @@
+
+footer {
+    color: #fff;
+    background: #00005F;
+    text-align: center;
+    padding-top: 4rem;
+
+    h1 {
+        font-size: 6rem;
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    ul {
+        margin-bottom: 2rem;
+        text-align: center;
+
+        li {
+            margin-bottom: 0.5rem;
+            text-align: left;
+            display: inline-block;
+            margin-right: 2rem;
+
+            a {
+                margin-bottom: 0.5rem;
+                color: #fff;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .stalk {
+        margin-top: 2rem;
+    }
+
+    .footnote {
+        background: black;
+        margin-top: 4rem;
+
+        p {
+            font-size: 0.8rem;
+            padding: 1rem;
+
+            a {
+                color: #aaa;
+            }
+        }
+    }
+}

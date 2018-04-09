@@ -16,6 +16,7 @@ body{
 }
 
 a {
+	transform: color 0.3s ease;
 	text-decoration: none;
 }
 
@@ -25,18 +26,18 @@ a:hover {
 
 ul {
 	li {
+		position: relative;
 		list-style-type: none;
 	}
 
 	li::before {
-		position: relative;
-		top: -7px;
+		position: absolute;
+		top: 0px;
+		left: -1rem;
 		display: inline-block;
-		content: " ";
-		width: 2em;
-		height: 1px;
-		margin: 0 2em 0 0;
-		background: #000;
+		content: ">";
+		width: 1rem;
+		height: 1rem;
 	}
 }
 

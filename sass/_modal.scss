@@ -1,4 +1,17 @@
 
+body.open {
+    overflow: auto;
+
+    article.modal {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    main {
+        filter: blur(3px);
+    }
+}
+
 article.modal {
     position: fixed;
     left: 3rem;
@@ -26,7 +39,7 @@ article.modal {
         }
 
         .description {
-            height: calc(100% - 6rem);
+            height: calc(100vh - 16rem);
             overflow: auto;
         }
     }
@@ -39,16 +52,5 @@ article.modal {
         font-size: 4rem;
         line-height: 1rem;
         cursor: pointer;
-    }
-}
-
-body.open {
-    article {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    main {
-        filter: blur(3px);
     }
 }

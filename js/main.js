@@ -6,10 +6,21 @@ class UI {
 	constructor() {
 		this.canvas = null;
 		this.shader = null;
+		this.currentScroll = [0, 0];
 
 		this.initShader();
 		this.initAnimationEvents();
 		this.initMetaballs();
+		this.disableScroll();
+	}
+
+	disableScroll() {
+		this.currentScroll = document.scrollingElement.scrollTop;
+		const handleScroll = e => {
+			window.scrollTo( 0, this.currentScroll );
+		};
+		document.addEventListener('touchmove', handleScroll);
+    document.addEventListener('scroll', handleScroll);
 	}
 
 	initShader() {

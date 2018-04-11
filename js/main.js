@@ -4,6 +4,7 @@
 
 class UI {
 	constructor() {
+		this.modal = null;
 		this.canvas = null;
 		this.shader = null;
 		this.currentScroll = [0, 0];
@@ -11,7 +12,8 @@ class UI {
 		this.initShader();
 		this.initAnimationEvents();
 		this.initMetaballs();
-		this.disableScroll();
+		this.initModal();
+		// this.disableScroll();
 	}
 
 	disableScroll() {
@@ -67,7 +69,16 @@ class UI {
 		  observer.observe(image);
 		});
 	}
+
+	initModal() {
+		fetch('data/projects.json').then( response => {
+			response.json().then( projects => {
+				this.modal = new Modal( projects );
+			});
+		});
+	}
 }
+
 
 document.addEventListener('DOMContentLoaded', event => {
 	const Portfolio = new UI;

@@ -7,6 +7,9 @@ a.button {
     display: inline-block;
     transition: background 0.3s ease;
 
+    &:hover {
+        background: $higlight-text;
+    }
 
     &.dark {
         background: #000;

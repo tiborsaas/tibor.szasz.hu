@@ -53,4 +53,15 @@ article.modal {
         line-height: 1rem;
         cursor: pointer;
     }
+
+    @media ( max-width: 900px ) {
+        .content {
+            grid-template-columns: 1fr;
+
+            .description {
+                height: 38vh;
+            }
+        }
+    }
 }
+

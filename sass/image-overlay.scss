@@ -1,0 +1,28 @@
+
+@mixin overlay () {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        content: '';
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==");
+        background-repeat: repeat;
+        background: #ff005e;
+        z-index: 1;
+        transform: rotate(-45deg) translateY(-125%);
+        transition: transform 1.6s ease;
+        transform-origin: left center;
+        mix-blend-mode: multiply;
+    }
+
+    &:hover {
+        &:after {
+            transform: rotate(-45deg) translateY(-30%);
+        }
+    }
+}

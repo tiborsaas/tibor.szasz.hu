@@ -10,30 +10,67 @@ class Modal {
         //
         this.projects = projectsData;
         //
-        this.initEvents();
+        this.initModalEvents();
     }
 
     toggleModal() {
         document.body.classList.toggle('open');
     }
 
-    loadContent( key ) {
-        this.$heading.textContent = this.projects[key].title;
+    isModalOpen() {
+        return document.body.classList.contains('open');
     }
 
-    initEvents() {
+    loadContent( key ) {
+        if( this.projects[key] ) {
+            this.$heading.textContent = this.projects[key].title;
+        } else {
+            throw new Error("Project does not exists, check if key exists.");
+        }
+    }
+
+    initModalEvents() {
         // Nodes that open the modal
-        this.$togglers.forEach( togglerNode => {
-            togglerNode.addEventListener('click', e => {
-                e.preventDefault();
+        this.addProjectItemEvents();
+        this.addCloseButtonEvent();
+        this.addKeyboardEvent();
+        this.addBodyClickToggleEvent();
+    }
+
+    addBodyClickToggleEvent() {
+        document.body.addEventListener('click', e => {
+            if( e.target.classList.contains('_close') ) {
                 this.toggleModal();
-                this.loadContent( e.target.dataset['modal'] );
+            }
+        });
+    }
+
+    addProjectItemEvents() {
+        this.$togglers.forEach(togglerNode => {
+            togglerNode.addEventListener('click', e => {
+                // e.preventDefault();
+                this.toggleModal();
+                try {
+                    this.loadContent(e.target.dataset['modal']);
+                }
+                catch (e) {
+                    console.error(e.message);
+                }
             });
         });
+    }
 
-        // Modal close button
+    addCloseButtonEvent() {
         this.$close.addEventListener('click', e => {
             this.toggleModal();
+        });
+    }
+
+    addKeyboardEvent() {
+        document.addEventListener('keyup', e => {
+            if( e.key == 'Escape' ) {
+                this.toggleModal();
+            }
         });
     }
 }

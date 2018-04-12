@@ -71,14 +71,13 @@ class UI {
 	}
 
 	initModal() {
-		fetch('data/projects.json').then( response => {
-			response.json().then( projects => {
-				this.modal = new Modal( projects );
-			});
+		fetch('data/projects.json')
+		.then( response => response.json())
+		.then( projects => {
+			this.modal = new Modal( projects );
 		});
 	}
 }
-
 
 document.addEventListener('DOMContentLoaded', event => {
 	const Portfolio = new UI;

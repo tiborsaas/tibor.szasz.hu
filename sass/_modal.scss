@@ -55,6 +55,16 @@ article.modal {
     }
 
     @media ( max-width: 900px ) {
+
+        left: 1rem;
+        top: 1rem;
+        bottom: 1rem;
+        right: 1rem;
+
+        h1 {
+            font-size: 2rem;
+        }
+
         .content {
             grid-template-columns: 1fr;
 

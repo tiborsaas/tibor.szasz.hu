@@ -28,6 +28,11 @@ section.experiments {
                 align-self: start;
             }
         }
+
+        @media (max-width: 700px) {
+            @include grid(1fr);
+            grid-column: 1;
+        }
     }
 
 
@@ -50,5 +55,14 @@ section.experiments {
         p {
             margin-bottom: 1rem;
         }
+
+        @media (max-width: 1115px) {
+            @include grid(1fr);
+        }
+
+    }
+
+    @media (max-width: 700px) {
+        @include grid(1fr);
     }
 }

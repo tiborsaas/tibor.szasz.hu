@@ -14,14 +14,37 @@ section.about {
         position: absolute;
         right: 4rem;
         bottom: 0;
+        z-index: 0;
     }
 
     article.introduction {
         padding-top: 10rem;
+        position: relative;
+        z-index: 2;
 
         p {
             margin-bottom: 1rem;
             font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 980px) {
+        display: flex;
+        flex-direction: column;
+        min-height: inherit;
+
+        article.introduction {
+            padding-top: 0;
+            padding-left: 50%;
+        }
+
+        h1 {
+            font-size: 6rem;
+            line-height: 10rem;
+        }
+
+        canvas {
+            display: none;
         }
     }
 }

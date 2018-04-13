@@ -43,4 +43,15 @@ section.projects {
             }
         }
     }
+
+    @media (max-width: 800px) {
+        display: block;
+        padding: 2rem;
+        grid-gap: 0;
+
+        h1 {
+            font-size: 6rem;
+            line-height: 10rem;
+        }
+    }
 }

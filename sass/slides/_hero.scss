@@ -22,4 +22,12 @@ section.hero {
 			font-size: .535em;
 		}
 	}
+
+    @media (max-width: 980px) {
+
+        h1 {
+            font-size: 3rem;
+            line-height: 4rem;
+		}
+	}
 }

@@ -14,11 +14,8 @@ class UI {
 
 	initHeroShader() {
 		const heroCanvas = document.querySelector('.hero canvas');
-			heroCanvas.style.width = '100%';
-			heroCanvas.width  = heroCanvas.offsetWidth;
-			heroCanvas.height = window.innerHeight;
-
 		this.canvas = heroCanvas;
+		this.maximizeHeroCanvasSize(heroCanvas);
 
 		const shader = new GlslCanvas(this.canvas);
 			shader.uniformTexture('u_tex0', 'img/shader/texture_1.jpg',{
@@ -28,6 +25,10 @@ class UI {
 			shader.uniformTexture('u_tex1', 'img/shader/8x8-bayer.png');
 
 		this.shader = shader;
+
+		window.addEventListener('resize', e => {
+			this.maximizeHeroCanvasSize(heroCanvas);
+		});
 	}
 
 	initMetaballs() {
@@ -37,6 +38,12 @@ class UI {
 
 		const shader = new GlslCanvas(metaballsCanvas);
 			shader.uniformTexture('u_tex0', 'img/shader/8x8-bayer.png');
+	}
+
+	maximizeHeroCanvasSize(canvas) {
+		canvas.style.width = '100%';
+		canvas.width  = canvas.offsetWidth;
+		canvas.height = window.innerHeight;
 	}
 
 	initModal() {

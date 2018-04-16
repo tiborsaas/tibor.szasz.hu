@@ -50,6 +50,15 @@ section.experiments {
             line-height: 2rem;
             margin-bottom: 1rem;
             text-align: left;
+
+            a {
+                color: #000;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: $higlight-text;
+                }
+            }
         }
 
         p {

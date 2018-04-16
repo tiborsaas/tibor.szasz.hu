@@ -10,6 +10,12 @@ class UI {
 		this.initHeroShader();
 		this.initMetaballs();
 		this.initModal();
+
+		document.querySelector('.show-more').addEventListener('click', e => {
+			document.querySelector('.about.slide').scrollIntoView({
+				behavior: 'smooth'
+			});
+		});
 	}
 
 	initHeroShader() {

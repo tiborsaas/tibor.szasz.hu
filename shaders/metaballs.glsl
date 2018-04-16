@@ -4,6 +4,7 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
+uniform vec2 u_mouse;
 uniform sampler2D u_tex0;
 uniform sampler2D u_tex1;
 

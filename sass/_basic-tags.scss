@@ -29,16 +29,6 @@ ul {
 		position: relative;
 		list-style-type: none;
 	}
-
-	li::before {
-		position: absolute;
-		top: 0px;
-		left: -1rem;
-		display: inline-block;
-		content: ">";
-		width: 1rem;
-		height: 1rem;
-	}
 }
 
 

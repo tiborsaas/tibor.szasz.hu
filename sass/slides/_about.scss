@@ -32,10 +32,11 @@ section.about {
         display: flex;
         flex-direction: column;
         min-height: inherit;
+        background-position: center bottom;
 
         article.introduction {
             padding-top: 0;
-            padding-left: 50%;
+            padding-bottom: 35%;
         }
 
         h1 {

@@ -36,6 +36,7 @@ section.projects {
             transition: all 1s ease;
             font-family: $font-sans;
             text-shadow: 0 0 5px #000;
+            cursor: pointer;
         }
 
         &:hover {

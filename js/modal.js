@@ -25,7 +25,6 @@ class Modal {
         if( this.projects[key] ) {
             this.$heading.textContent = this.projects[key].title;
             this.$image.src = this.projects[key].image_path;
-            console.log(this.$image, this.$image.src)
             this.$content.innerHTML = this.formatBody(this.projects[key].description);
         } else {
             throw new Error("Project does not exists, check if key exists.");

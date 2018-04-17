@@ -41,6 +41,10 @@ article.modal {
         .description {
             height: calc(100vh - 16rem);
             overflow: auto;
+
+            p {
+                margin-bottom: 1rem;
+            }
         }
     }
 

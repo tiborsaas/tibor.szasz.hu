@@ -2,9 +2,10 @@
  * GULP tasks
  * @author Tibor Szász
  */
-var gulp = require('gulp'),
+const fs = require('fs'),
+	gulp = require('gulp'),
 	sass = require('gulp-sass');
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglifyes');
 	concat = require('gulp-concat');
 	autoprefixer = require('gulp-autoprefixer');
 
@@ -12,8 +13,8 @@ var gulp = require('gulp'),
  * Launch static server
  */
 gulp.task('express', function() {
-	var express = require('express');
-	var app = express();
+	const express = require('express');
+	const app = express();
 	app.use(express.static(__dirname));
 	app.listen(4000);
 });
@@ -45,6 +46,15 @@ gulp.task('js', function () {
 	.pipe(gulp.dest('./dist'));
 });
 
+gulp.task('publish', ['sass','js'], function() {
+	console.log('Assets generated');
+});
+
+gulp.task('build', ['express','sass','js'], function() {
+	console.log('=== Build done ===');
+	process.exit();
+});
+
 /**
  * And the main entry point:
  *  - compiles sass
@@ -58,3 +68,4 @@ gulp.task('default', ['express','sass','js'], function() {
 	gulp.watch('./sass/**/*.scss', ['sass']);
 	gulp.watch('./js/**/*.js', ['js']);
 });
+

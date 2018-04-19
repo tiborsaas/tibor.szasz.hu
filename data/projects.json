@@ -1,0 +1,22 @@
+{
+    "stunn": {
+        "title": "Stunn video editor",
+        "image_path": "img/works/stunn_app.jpg",
+        "description": "Stunn Editor was a great project to explore the possibilities of video editing in the browser. My part was to create the frontend side of the app from the landing page to the editor. I also researched a way to render video server side with simply using HTML and CSS animations. \r The JavaScript app I built used Backbone.js and Marionette which was one of the top libraries at the time. \r With the app you were able to upload and import a video from YouTube and export it directly back. Features like simple image editing, text slides and audio track support were also implemented. \r Take a look at the screen recordings of the features: \r <a href='https://www.youtube.com/watch?v=Q5HGWhhMvGQ&list=PLg-hyOHEclVc3Mbc6qsFOWNTjUn319yWW' target='_blank' class='dark button'>Playlist of features</a> \r <a href='https://www.youtube.com/watch?v=WRLNcIznRq0' target='_blank' class='dark button'>Short summary of the project</a>"
+    },
+    "presenter": {
+        "title": "Stunn presenter",
+        "image_path": "img/works/presenter_app.jpg",
+        "description": "We created Presenter to easily create videos in the browser in the style of people talking over slides with their face visible in the lower right corner. \r All you had to do is to upload a PDF that we converted to images, hit record and you were good to go to start and record any presentation. \r Intro and outro clips were automatically inserted. \r I created a prototype of the app in a short amount of time using Semantic UI and just vanilla JavaScript. For video recording a third party API was used. \r The backend was also created by me in Laravel. \r <a href='https://www.youtube.com/watch?v=-rOxs3Ohmsk' target='_blank' class='dark button'>See demo video</a>"
+    },
+    "clouddeck": {
+        "title": "CloudDeck",
+        "image_path": "img/works/clouddeck.jpg",
+        "description": "This was one of my first large scale projects. The idea was to bring online music streaming to the desktop. \r It was created in 2012 so the best tool to create a dekstop app with a fancy UI was using Adobe AIR. \r The project was built on top of SoundCloud API when it was more open and accessible. \r I aslo built a search engine that analyzed the top 1000 music blogs for new and hip music published on SoundCloud. I then used my own algorithm to present it to users in the spotlight tab. \r There was also a webapp which with the desktop client synchronized playlists. \r <a href='https://www.youtube.com/watch?v=D2WhHoOSvFA' target='_blank' class='dark button'>Promo video</a>"
+    },
+    "websites": {
+        "title": "CMS projects I've built",
+        "image_path": "img/works/wireframes.jpg",
+        "description": "These full-stack projects are crated for various clients. I was there from the beginnging, starting by desigend the wireframes and collecting the needs. Then I built the frontend side and created backend as well. \r My choice for content management was Craft CMS since it provides a great developer and end user exeperience which is not that common. The support is also great with a healthy ecosystem. \r See these sites in action: \r \r <a href='http://mosaik.space' target='_blank' class='dark button'>Mosaik.space — Co-working space in Budapest</a>\r <a href='https://totalcloudconsulting.hu' target='_blank' class='dark button'>TotalCloud — An AWS consultation business</a>\r <a href='https://codingsans.com' target='_blank' class='dark button'>Coding Sans — A web development company</a>"
+    }
+}

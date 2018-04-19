@@ -1,0 +1,51 @@
+
+section.about {
+    @include grid(1fr 2fr);
+
+    background: #fff url(t.jpg) no-repeat left bottom;
+    background-size: 40%;
+    position: relative;
+
+    h1 {
+        font-size: 8rem;
+    }
+
+    canvas {
+        position: absolute;
+        right: 4rem;
+        bottom: 0;
+        z-index: 0;
+    }
+
+    article.introduction {
+        padding-top: 10rem;
+        position: relative;
+        z-index: 2;
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 980px) {
+        display: flex;
+        flex-direction: column;
+        min-height: inherit;
+        background-position: center bottom;
+
+        article.introduction {
+            padding-top: 0;
+            padding-bottom: 35%;
+        }
+
+        h1 {
+            font-size: 6rem;
+            line-height: 10rem;
+        }
+
+        canvas {
+            display: none;
+        }
+    }
+}

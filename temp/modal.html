@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../fonts/Salome-Regular-Webfont/stylesheet.css">
+    <title>Modal test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            background: linear-gradient(to bottom, orangered, blueviolet)
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'salomeregular';
+        }
+
+        p {
+            font-family: arial;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        main {
+            filter: blur(3px);
+        }
+
+        article {
+            position: fixed;
+            left: 3rem;
+            top: 3rem;
+            bottom: 3rem;
+            right: 3rem;
+            background: #fff;
+            box-shadow: 0 0 3rem rgba(0,0,0,0.35);
+            padding: 3rem;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: scale(0);
+            display: grid;
+        }
+
+        article.open {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        article .close {
+            font-family: 'salomeregular';
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 4rem;
+            line-height: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Modal test</h1>
+        <button>Open modal</button>
+    </main>
+
+    <article>
+        <h1>Project title</h1>
+        <img src="../img/clients/mosaik.png" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus qui velit nesciunt exercitationem, voluptatibus commodi officiis magnam ad, sit minus, aut voluptas deserunt sed consectetur excepturi! Alias minus eaque voluptatibus.</p>
+        <a class="close">×</a>
+    </article>
+
+    <script>
+        const button = document.querySelector('button');
+        const modal = document.querySelector('article');
+
+        button.addEventListener('click', e => {
+            modal.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

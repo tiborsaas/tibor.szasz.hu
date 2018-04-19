@@ -50,9 +50,8 @@ gulp.task('publish', ['sass','js'], function() {
 	console.log('Assets generated');
 });
 
-gulp.task('build', ['express','sass','js'], function() {
+gulp.task('build', ['sass','js'], function() {
 	console.log('=== Build done ===');
-	process.exit();
 });
 
 /**

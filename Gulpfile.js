@@ -50,6 +50,10 @@ gulp.task('publish', ['sass','js'], function() {
 	console.log('Assets generated');
 });
 
+gulp.task('build', ['express','sass','js'], function() {
+	console.log('=== Build done ===');
+	process.exit();
+});
 
 /**
  * And the main entry point:
@@ -64,3 +68,4 @@ gulp.task('default', ['express','sass','js'], function() {
 	gulp.watch('./sass/**/*.scss', ['sass']);
 	gulp.watch('./js/**/*.js', ['js']);
 });
+

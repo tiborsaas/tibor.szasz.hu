@@ -11,7 +11,7 @@
     },
     "clouddeck": {
         "title": "CloudDeck",
-        "image_path": "img/works/clouddeck.jpg",
+        "image_path": "img/works/sources/clouddeck.jpg",
         "description": "This was one of my first large scale projects. The idea was to bring online music streaming to the desktop. \r It was created in 2012 so the best tool to create a desktop app with a fancy UI was using Adobe AIR. \r The project was built on top of SoundCloud API when it was more open and accessible. \r I also built a search engine that analyzed the top 1000 music blogs for new and hip music published on SoundCloud. I then used my own algorithm to present it to users in the spotlight tab. \r There was also a webapp which with the desktop client synchronized playlists. \r <a href='https://www.youtube.com/watch?v=D2WhHoOSvFA' target='_blank' class='dark button'>Promo video</a>"
     },
     "websites": {

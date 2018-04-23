@@ -2,8 +2,8 @@
 section.about {
     @include grid(1fr 2fr);
 
-    background: #fff url(t.jpg) no-repeat left bottom;
-    background-size: 40%;
+    background: #fff url(../img/camera.jpg) no-repeat left bottom;
+    background-size: 32%;
     position: relative;
 
     h1 {

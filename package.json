@@ -11,7 +11,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
+    "gulp-autoprefixer": "^6.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.0.1",
     "gulp-uglifyes": "^0.1.3",

@@ -1,3 +1,13 @@
-### HELLO WORLD ###
+# Tibor Szasz Portfolio / Blog
 
-My nice portfolio site is growing here.
+This is my blog and portfolio monorepo.
+
+## Blog
+
+The blog is powered by Gatsby using the Narative's awesome Novela theme.
+
+[Read it here](http://tibor.szasz.hu/blog)
+
+## Portfolio
+
+It's just a static HTML page which is built with Parcel.

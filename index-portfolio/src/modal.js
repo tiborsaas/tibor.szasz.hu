@@ -1,5 +1,6 @@
+import imagepool from './imagepool.js';
 
-class Modal {
+export default class Modal {
     constructor(projectsData) {
         this.$modal = document.querySelector('article.modal');
         this.$heading = this.$modal.querySelector('h1');
@@ -24,7 +25,7 @@ class Modal {
     loadContent(key) {
         if( this.projects[key] ) {
             this.$heading.textContent = this.projects[key].title;
-            this.$image.src = this.projects[key].image_path;
+            this.$image.src = imagepool[key];
             this.$content.innerHTML = this.formatBody(this.projects[key].description);
         } else {
             throw new Error("Project does not exists, check if key exists.");

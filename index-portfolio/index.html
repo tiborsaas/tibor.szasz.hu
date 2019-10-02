@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tibor Szász – Full stack developer</title>
-	<link rel="stylesheet" href="dist/main.css?v2">
+	<link rel="stylesheet" href="./sass/main.scss">
 	<link name="author" href="https://plus.google.com/u/0/117485721567694294573">
 	<link rel="preconnect" href="http://fonts.googleapis.com">
 	<link rel="preconnect" href="http://fonts.gstatic.com">
-	<link href='/fonts/Salome-Regular-Webfont/stylesheet.css' rel='stylesheet' type='text/css'>
-	<link href='/fonts/Noway-Regular-webfont/stylesheet.css' rel='stylesheet' type='text/css'>
+	<link href='./fonts/Salome-Regular-Webfont/stylesheet.css' rel='stylesheet' type='text/css'>
+	<link href='./fonts/Noway-Regular-webfont/stylesheet.css' rel='stylesheet' type='text/css'>
 	<link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16">
 
@@ -60,7 +60,7 @@
 	<header>
 		<section class="hero slide">
 			<h1>Tibor Szász<span>{Full ﬆack developer}</span></h1>
-			<canvas data-fragment-url="shaders/hero.glsl?v3"></canvas>
+			<canvas></canvas>
 			<a class="show-more"></a>
         </section>
     </header>
@@ -75,29 +75,29 @@
 				<p>I like to think of software as craftsmanship. Building prototypes, iterating over them and releasing an MVP is on my toolbelt.</p>
 				<p>I make web apps ranging from data driven to creative tools. Without being exhaustive, I use various frameworks like React or Angular, CSS3 magic, Node.js, Python to deliver products. A good project starts on the whiteboard and ends up in the hands of happy users.</p>
 			</article>
-			<canvas data-fragment-url="shaders/metaballs.glsl"></canvas>
+			<canvas></canvas>
 		</section>
 
 		<section class="projects slide">
             <h1>Works</h1>
 
             <article class="project" data-modal="stunn">
-				<img src="img/works/stunn.jpg" alt="Stunn video editor">
+				<img src="./img/works/stunn.jpg" alt="Stunn video editor">
 				<h1>Stunn video editor</h1>
 			</article>
 
 			<article class="project" data-modal="presenter">
-				<img src="img/works/presenter.jpg" alt="Stunn presenter">
+				<img src="./img/works/presenter.jpg" alt="Stunn presenter">
 				<h1>Presenter video annotator</h1>
 			</article>
 
 			<article class="project" data-modal="clouddeck">
-				<img src="img/works/clouddeck.jpg" alt="CloudDeck">
+				<img src="./img/works/clouddeck.jpg" alt="CloudDeck">
 				<h1>CloudDeck</h1>
 			</article>
 
 			<article class="project" data-modal="websites">
-				<img src="img/works/websites.jpg" alt="CloudDeck">
+				<img src="./img/works/websites.jpg" alt="CloudDeck">
 				<h1>Websites I built</h1>
 			</article>
 		</section>
@@ -107,7 +107,7 @@
 				<h1><span>x/</span><span>im</span><span>ents</span></h1>
 
 				<article class="project">
-					<a href="http://gradient.quasi.ink" target="_blank"><img src="img/experiments/gradient.jpg" alt="Unique gradient generator"></a>
+					<a href="http://gradient.quasi.ink" target="_blank"><img src="./img/experiments/gradient.jpg" alt="Unique gradient generator"></a>
 					<div class="content">
 						<h1><a href="http://gradient.quasi.ink" target="_blank">Unique gradient generator</a></h1>
 						<p>I had an idea how to make very lightweight background gradients to any HTML element. With this tool you can extract a few pixels and scale it up with CSS.</p>
@@ -117,7 +117,7 @@
 			</header>
 
 			<article class="project">
-				<a href="http://design.quasi.ink" target="_blank"><img src="img/experiments/design-relic.jpg" alt="Design relic"></a>
+				<a href="http://design.quasi.ink" target="_blank"><img src="./img/experiments/design-relic.jpg" alt="Design relic"></a>
 				<div class="content">
 					<h1><a href="http://design.quasi.ink" target="_blank">Design relic</a></h1>
 					<p>There are tons of online design tools out there that are mostly unknown. This project aims to collect them to a single location.</p>
@@ -125,7 +125,7 @@
 			</article>
 
 			<article class="project">
-				<a href="https://github.com/tiborsaas/node-resume" target="_blank"><img src="img/experiments/node-resume.jpg" alt="Node resume example"></a>
+				<a href="https://github.com/tiborsaas/node-resume" target="_blank"><img src="./img/experiments/node-resume.jpg" alt="Node resume example"></a>
 				<div class="content">
 					<h1><a href="https://github.com/tiborsaas/node-resume" target="_blank">Node resume</a></h1>
 					<p>I got bored with updating my CV, finding it on Google drive and all that hassle. I thought it's a great exercise to generate my CV based on a JSON file :)</p>
@@ -134,7 +134,7 @@
 			</article>
 
             <article class="project">
-				<a href="https://www.youtube.com/watch?v=kU2TMdVap3c" target="_blank"><img src="img/experiments/shader-tube.jpg" alt="Shader tube logo"></a>
+				<a href="https://www.youtube.com/watch?v=kU2TMdVap3c" target="_blank"><img src="./img/experiments/shader-tube.jpg" alt="Shader tube logo"></a>
                 <div class="content">
 					<h1><a href="https://www.youtube.com/watch?v=kU2TMdVap3c" target="_blank">Shader tube</a></h1>
                 	<p>To spice up boring YouTube videos without a music video but otherwise great music, I created a Chrome extension that can generate Winamp Milkdrop style animations on the fly using WebGL.</p>
@@ -142,7 +142,7 @@
 			</article>
 
             <article class="project">
-                <a href="https://www.youtube.com/watch?v=nwqh70KDU4A" target="_blank"><img src="img/experiments/voltslicer.jpg" alt="Volt slicer video"></a>
+                <a href="https://www.youtube.com/watch?v=nwqh70KDU4A" target="_blank"><img src="./img/experiments/voltslicer.jpg" alt="Volt slicer video"></a>
                 <div class="content">
 					<h1><a href="https://www.youtube.com/watch?v=nwqh70KDU4A" target="_blank">Volt slicer</a></h1>
                 	<p>Propellerhead Reason is a long love of mine so when they released an SDK, I got very excited. This plugin splits CV signals (-1 to +1) to gate signals. Written in C++.<p>
@@ -150,7 +150,7 @@
 			</article>
 
             <article class="project">
-				<a href="http://tiborsaas.github.io/webmidi-vj/" target="_blank"><img src="img/experiments/webmidi.jpg" alt="CloudDeck"></a>
+				<a href="http://tiborsaas.github.io/webmidi-vj/" target="_blank"><img src="./img/experiments/webmidi.jpg" alt="CloudDeck"></a>
                 <div class="content">
 					<h1><a href="http://tiborsaas.github.io/webmidi-vj" target="_blank">WebMIDI VJ</a></h1>
                 	<p>To explore what can you do with WebMIDI, I made a simple experiment on how to hook up any MIDI controller and use its faders to have some fun.</p>
@@ -159,7 +159,7 @@
 			</article>
 
 			<article class="project">
-				<a href="https://twitter.com/gifcrasher" target="_blank"><img src="img/experiments/gifcrasher.jpg" alt="CloudDeck"></a>
+				<a href="https://twitter.com/gifcrasher" target="_blank"><img src="./img/experiments/gifcrasher.jpg" alt="CloudDeck"></a>
                 <div class="content">
 					<h1><a href="https://twitter.com/gifcrasher" target="_blank">GifCrasher</a></h1>
                 	<p>Glitch art is an art form I really like. I also like GIF-s and I love to connect random things. This project grabs a top GIF from Giphy, breaks it to pieces and then posts it to Twitter. What's not to like?</p>
@@ -182,7 +182,7 @@
 				<li><a href="https://twitter.com/tiborsaas" target="_blank">Twitter</a></li>
 				<li><a href="https://soundcloud.com/run-stop" target="_blank">SoundCloud</a></li>
 				<li><a href="https://www.linkedin.com/in/tiborszasz/" target="_blank">LinkedIn</a></li>
-				<li><a href="http://quasi.ink/" target="_blank">My blog</a></li>
+				<li><a href="/blog" target="_blank">My blog</a></li>
 			</ul>
 		</article>
 
@@ -192,7 +192,7 @@
 	</footer>
 
 	<!-- / end of content -->
-	<script src="dist/flat.js?vx"></script>
+	<script src="./src/main.js"></script>
 
 	<script type="application/ld+json">
 	{

@@ -1,21 +1,30 @@
 {
+  "private": false,
   "name": "tiborsaas",
-  "version": "1.0",
-  "description": "Tibor Szász portfolio",
-  "main": "Gulpfile.js",
+  "version": "1.0.0",
+  "license": "ARR",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gatsby develop",
+    "portfolio": "parcel build ./index-portfolio/index.html --open",
+    "build": "run-s build:gatsby build:index move:gatsby",
+    "build:gatsby": "gatsby build --prefix-paths",
+    "build:index": "parcel build ./index-portfolio/index.html --out-dir ./dist --public-url https://tibor.szasz.hu",
+    "move:gatsby": "mv ./public ./dist/blog",
+    "clean": "gatsby clean"
   },
-  "author": "Tibor Szász",
-  "license": "UNLICENSED",
   "dependencies": {
-    "express": "^4.16.3",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-sass": "^4.0.1",
-    "gulp-uglifyes": "^0.1.3",
-    "gulp-util": "^3.0.8"
+    "@narative/gatsby-theme-novela": "^0.8.2",
+    "gatsby": "^2.13.41",
+    "gatsby-plugin-manifest": "^2.2.4",
+    "img": "^3.0.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.1",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.12"
+  }
 }

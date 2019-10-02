@@ -1,14 +1,15 @@
 {
-  "private": true,
-  "name": "site",
+  "private": false,
+  "name": "tiborsaas",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "ARR",
   "scripts": {
+    "dev": "gatsby develop",
+    "portfolio": "parcel build ./index-portfolio/index.html --open",
     "build": "run-s build:gatsby build:index move:gatsby",
     "build:gatsby": "gatsby build --prefix-paths",
+    "build:index": "parcel build ./index-portfolio/index.html --out-dir ./dist --public-url https://tibor.szasz.hu",
     "move:gatsby": "mv ./public ./dist/blog",
-    "build:index": "parcel build ./index/index.html --out-dir ./dist --public-url https://tibor.szasz.hu",
-    "dev": "gatsby develop",
     "clean": "gatsby clean"
   },
   "dependencies": {

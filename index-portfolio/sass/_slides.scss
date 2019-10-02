@@ -1,0 +1,10 @@
+
+section.slide {
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 7rem;
+
+    @media (max-width: 1150px) {
+        padding: 0 3rem;
+    }
+}

@@ -1,0 +1,81 @@
+
+section.experiments {
+    @include grid(1fr 1fr);
+
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    header {
+        @include grid(1fr 2fr);
+        grid-column: span 2;
+        margin-bottom: 3rem;
+
+        h1 {
+            text-align: center;
+            font-size: 7rem;
+            line-height: 6rem;
+
+            span {
+                display: block;
+                text-align: right;
+            }
+        }
+
+        .project {
+            padding-top: 3rem;
+
+            img, .content {
+                align-self: start;
+            }
+        }
+
+        @media (max-width: 700px) {
+            @include grid(1fr);
+            grid-column: 1;
+        }
+    }
+
+
+    .project {
+        @include grid(1fr 1fr);
+
+        img {
+            width: 100%;
+            align-self: start;
+            cursor: pointer;
+        }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            text-align: left;
+
+            a {
+                color: #000;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: $higlight-text;
+                }
+            }
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 1115px) {
+            @include grid(1fr);
+        }
+
+    }
+
+    @media (max-width: 700px) {
+        @include grid(1fr);
+
+        h1 {
+            margin-top: -1rem;
+        }
+    }
+}

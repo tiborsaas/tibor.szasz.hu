@@ -2,8 +2,8 @@
 author: Tibor Szasz
 date: 2019-10-06T00:00:00.000Z
 hero: ./photo-1491832541507-17ee9fc8d164.jpg
-excerpt: 'A new blog, fresh start, let''s see where this will take me.'
-draft: true
+excerpt: 'The compulsory how I picked the blog engine post'
+draft: false
 published: true
 title: So you want a fancy static site?
 publushed: false
@@ -11,4 +11,43 @@ publushed: false
 
 ## So you want a fancy static site?
 
-Static sites are nothing new, actually static sites were the standard when the www begin it's adventure in the early 90s.
+Static sites are nothing new, actually they were the standard when the www begin it's adventure in the early 90s. Webmasters wrote HTML to publish some content and some server or script served the content.
+
+Today we made a full circle and static sites are the new and hipster thing. Many tools exists to generate HTML in an incredibly complicated way. My choice in this arms race was Gatsby. I just can't sleep well if my page is not powered by React and GraphQL :)
+
+I gave a try again to Jeckyll and Hugo but they the developer friendliness was a major letdown. Jeckyll still require Ruby to be installed which I really wanted to avoid because it still sucks on Windows and I'm a multiplatform guy. I even tried a Node.js port of Jeckyll because what matters is the content, right? I can mock Jeckyll. My approach failed, but I wanted it to work becuase the hosting part could be solved by deploying it to GitHub automatically with the setup I'll explain at the end of this post. Butthen I opted for Netlify hosting because life is too short to manually configure CI, Docker.
+
+
+### Testing out Hugo
+
+The installation was simple enough, but to work with the templates I found in the Hugo site turned me off. I tried like 3-4 and some didn't work at all, some had bugs and the way I have to install them was something I didn't understand at all. Why install themes as GIT submodules? I'm sure the underlying system is sound, but it violated my 30 minute rule.
+
+### The 30 minute rule
+
+Whenever I have to test out alternatives to decide on a specific project to use I set a time limit to test each of them out. What I'm looking for is to compare which of them are the most frictionless, easy to understand and least painful to work with. I usually go for something more complex than a hello world to see if the basic feature set can be achieved. If it fits in 30 min then green light.
+
+### Gatsby
+
+I was a bit biased towards Gatsby, because it showed me that GraphQL can be much more flexible than just a REST API replacement. I used it for the [Instart blog](https://instart.blog). Since a year is a long time in JS land I was worried that Gatsby became bloated but luckily my fears were unwarranted. I quickly found a theme that I liked and it worked more or less as I expected.
+
+### Mashing up it with my existing landing page
+
+It took me while to settle on where to host my blog, I was quite happy with [my landing page](/) and didn't really want to nuke it, but this domain is also perfect for a personal blog.
+
+I'm not sure why haven't I seen the tree from forest, but I ended up with using the `/blog` path for the blog powered by Gatsby and the main page is vanilla JS built with Parcel.
+
+I moved my "old" landing to the `index-portfolio` folder in my repo and made a build script that targets `/dist` folder. I also configured Netlify to set it as my root directory to serve content.
+
+Gatsby targets the `/public` folder by default and that cannot be changed, but wasn't much of a problem. I just move the Gatsby dir as the final step:
+
+`"move:gatsby": "mv ./public ./dist/blog"`
+
+My package.json build script looks like this:
+
+`"build": "run-s build:gatsby build:index move:gatsby"`
+
+Quite simple and elegant.
+
+One minor hickup with Gatsby was that I had to set `pathPrefix: "/blog"` in the `gatsby-config.js` to have every link and asset path realize that it's being served from a directory.
+
+So that's it, shiny blog up and running, great success.

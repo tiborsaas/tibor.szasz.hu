@@ -22,6 +22,18 @@ const Blockquote = styled.blockquote`
 
 	${mediaqueries.tablet`
     	margin: 10px auto 35px;
+		padding-left: 46px;
+		&:before {
+			left: 0.15em;
+		}
+	`};
+
+
+	${mediaqueries.phablet`
+		padding-left: 55px;
+		&:before {
+			left: 0.25em;
+		}
 	`};
 
 	& > p {
@@ -38,12 +50,12 @@ const Blockquote = styled.blockquote`
 
 		${mediaqueries.tablet`
 			font-size: 26px;
-			padding: 0 180px;
+			padding: 0 36px 0 0;
 		`};
 
 		${mediaqueries.phablet`
-			font-size: 36px;
-			padding: 0 20px 0 40px;
+			font-size: 26px;
+			padding: 0 20px 0 0px;
 		`};
 
 		em {

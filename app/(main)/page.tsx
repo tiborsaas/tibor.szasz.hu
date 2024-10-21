@@ -51,7 +51,7 @@ export default function Page() {
           <WorkEntry
             image={InstartPic}
             title="Instart design"
-            description="A generative art project based in AI image generators."
+            description="A generative art project based on AI image generators."
             buttonText="Visit project"
             link="https://instart.design"
           />

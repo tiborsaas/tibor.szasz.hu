@@ -12,13 +12,11 @@ export default function Shader() {
 
     canvasRef.current.width = 800;
     canvasRef.current.height = 384;
-    console.log("test");
 
     import("glslCanvas").then((GlslCanvas) => {
       const shader = new GlslCanvas.default(canvasRef.current);
       shader.uniformTexture("u_tex0", bayer8x8Path.src);
       shader.load(MetaballShader);
-      console.log(shader);
     });
   }, []);
 

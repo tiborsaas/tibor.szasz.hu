@@ -30,9 +30,7 @@ export default function Page() {
       <div className="relative flex justify-end bg-white mb-16 overflow-hidden">
         <p className="absolute left-0 top-8 w-2/3 text-4xl font-bold mix-blend-difference text-white">
           I'm a software engineer who enjoys building unique products. The web
-          is my playground where I feel home.
-          <br />
-          <br />I find beauty when my work solves problems by design.
+          is my playground.
         </p>
         <Shader />
       </div>

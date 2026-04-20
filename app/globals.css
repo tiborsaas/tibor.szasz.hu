@@ -1,3 +1,240 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    border-radius: 0 !important;
+  }
+
+  body {
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    background-image: radial-gradient(
+      circle,
+      rgba(224, 224, 224, 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  a {
+    cursor: crosshair;
+  }
+
+  ::selection {
+    background-color: #00ff41;
+    color: #0a0a0a;
+  }
+}
+
+/* ─── Micrographics ─────────────────────────────────────────── */
+
+/* Micro cross marker */
+.micro-cross::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cline x1='4' y1='0' x2='4' y2='8' stroke='%2300FF41' stroke-width='1'/%3E%3Cline x1='0' y1='4' x2='8' y2='4' stroke='%2300FF41' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  margin-right: 6px;
+  vertical-align: middle;
+  opacity: 0.5;
+}
+
+/* Corner bracket decoration (top-left) */
+.micro-bracket-tl {
+  position: relative;
+}
+.micro-bracket-tl::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border-top: 1px solid rgba(0, 255, 65, 0.4);
+  border-left: 1px solid rgba(0, 255, 65, 0.4);
+  pointer-events: none;
+}
+
+/* Micro diamond bullet */
+.micro-diamond::before {
+  content: "◆";
+  font-size: 5px;
+  color: rgba(0, 255, 65, 0.5);
+  margin-right: 8px;
+  vertical-align: middle;
+  letter-spacing: 0;
+}
+
+/* Section rule with micro tick marks */
+.micro-rule {
+  position: relative;
+  height: 1px;
+  background: rgba(224, 224, 224, 0.1);
+  flex: 1;
+}
+.micro-rule::before,
+.micro-rule::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: rgba(0, 255, 65, 0.4);
+}
+.micro-rule::before {
+  left: 20%;
+}
+.micro-rule::after {
+  left: 60%;
+}
+
+/* Scanline overlay on hover for cards */
+.scanline-hover {
+  position: relative;
+  overflow: hidden;
+}
+.scanline-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.06) 3px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.scanline-hover:hover::after {
+  opacity: 1;
+}
+
+/* Micro grid pattern for decorative panels */
+.micro-grid-bg {
+  background-image:
+    linear-gradient(rgba(224, 224, 224, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224, 224, 224, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Accent tick sequence — decorative horizontal marks */
+.micro-ticks {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.micro-ticks span {
+  display: inline-block;
+  width: 2px;
+  height: 8px;
+  background: rgba(0, 255, 65, 0.35);
+}
+.micro-ticks span:nth-child(3n) {
+  height: 14px;
+  opacity: 0.6;
+}
+.micro-ticks span:nth-child(5n) {
+  height: 5px;
+  opacity: 0.2;
+}
+
+/* Feed row hover */
+.feed-row {
+  border-bottom: 1px solid rgba(224, 224, 224, 0.08);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.feed-row:hover {
+  background-color: rgba(0, 255, 65, 0.04);
+  border-color: rgba(0, 255, 65, 0.2);
+}
+
+/* Prose overrides for brutalist dark theme */
+.prose-brutalist {
+  --tw-prose-body: #e0e0e0;
+  --tw-prose-headings: #e0e0e0;
+  --tw-prose-links: #00ff41;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-counters: #00ff41;
+  --tw-prose-bullets: #00ff41;
+  --tw-prose-hr: rgba(224, 224, 224, 0.2);
+  --tw-prose-quotes: #e0e0e0;
+  --tw-prose-quote-borders: #00ff41;
+  --tw-prose-captions: rgba(224, 224, 224, 0.5);
+  --tw-prose-code: #00ff41;
+  --tw-prose-pre-code: #e0e0e0;
+  --tw-prose-pre-bg: #111111;
+  --tw-prose-th-borders: rgba(224, 224, 224, 0.2);
+  --tw-prose-td-borders: rgba(224, 224, 224, 0.1);
+}
+
+.prose-brutalist a {
+  text-decoration-color: rgba(0, 255, 65, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.prose-brutalist a:hover {
+  text-decoration-color: #00ff41;
+}
+
+.prose-brutalist pre {
+  border: 1px solid rgba(224, 224, 224, 0.15);
+}
+
+.prose-brutalist code {
+  font-family: var(--font-jetbrains), monospace;
+}
+
+.prose-brutalist img {
+  border: 1px solid rgba(224, 224, 224, 0.2);
+}
+
+/* ─── Yoopta viewer — responsive video/embed ─────────────────── */
+/* Force the full chain of wrappers to fill the blog-post container.
+   Structure: [data-element-type] > div.relative[contenteditable] >
+   .react-draggable > iframe/video */
+.post-body [data-element-type="embed"] > div,
+.post-body [data-element-type="video"] > div {
+  width: 100% !important;
+}
+.post-body .react-draggable {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.post-body video,
+.post-body iframe {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+/* Terminal cursor blink */
+@keyframes terminal-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-cursor::after {
+  content: "█";
+  animation: terminal-blink 1s step-end infinite;
+  color: #00ff41;
+  margin-left: 2px;
+}

@@ -56,8 +56,7 @@ export default async function Page() {
           Tibor Szász
         </h1>
         <p className="font-mono text-sm text-offwhite-dim max-w-lg leading-relaxed">
-          Developer / Founder / Artist / Musician — organic stochastic
-          autonomous agent oscillating between frontend and backend.
+          Engineer / Founder / Artist / Musician / Toolmaker
         </p>
       </header>
 

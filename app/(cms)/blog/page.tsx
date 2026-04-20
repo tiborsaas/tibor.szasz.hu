@@ -1,86 +1,121 @@
 import Link from "next/link";
-import { draftMode } from "next/headers";
+import { serverDb } from "@/lib/server-db";
+import { SystemStatus } from "../../components/SystemStatus";
 
-import Date from "./date";
-import CoverImage from "./cover-image";
-import MoreStories from "./more-stories";
-
-import { getAllPosts } from "@/lib/api";
-import { Footer } from "../../components/Footer";
-import Monogram from "../../../index-portfolio/img/svg/monogram.min.svg";
-
-function Intro() {
-  return (
-    <section className="flex-col md:flex-row flex items-center md:justify-between mt-8 mb-16 md:mb-12">
-      <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-        <img src={Monogram.src} width="64" alt="Tibor Szász monogram" />
-      </h1>
-      <h2 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        A blog, a journal to infrequently offload things from my mind
-      </h2>
-    </section>
-  );
+function formatDate(timestamp: number): string {
+  const d = new Date(timestamp);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 }
 
-function HeroPost({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  slug,
+function estimateReadTime(body: string): number {
+  const words = body.length / 5;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+export default async function ArchivePage({
+  searchParams,
 }: {
-  title: string;
-  coverImage: any;
-  date: string;
-  excerpt: string;
-  author: any;
-  slug: string;
+  searchParams: Promise<{ tag?: string }>;
 }) {
+  const { tag: activeTag } = await searchParams;
+
+  const data = await serverDb.query({
+    blog: {
+      $: { order: { serverCreatedAt: "desc" } },
+    },
+  });
+
+  let posts = data.blog ?? [];
+  if (activeTag) {
+    posts = posts.filter(
+      (p) => p.tags?.toLowerCase() === activeTag.toLowerCase()
+    );
+  }
+
+  // Group posts by year
+  const grouped: Record<string, typeof posts> = {};
+  posts.forEach((post) => {
+    const year = new Date(Number(post.created_at)).getFullYear().toString();
+    if (!grouped[year]) grouped[year] = [];
+    grouped[year].push(post);
+  });
+
+  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+
   return (
-    <section>
-      <div className="mb-8">
-        <CoverImage title={title} slug={slug} url={coverImage.url} />
-      </div>
-      <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20">
-        <div>
-          <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-            <Link href={`/post/${slug}`} className="hover:underline">
-              {title}
-            </Link>
-          </h3>
-          <div className="mb-4 md:mb-0 text-lg">
-            <Date dateString={date} />
+    <div className="py-16">
+      <header className="mb-20">
+        <h1 className="font-display text-5xl md:text-7xl mb-4">Archive</h1>
+        <p className="font-mono text-sm text-offwhite-dim">
+          Complete transmission log — {posts.length} entries
+          {activeTag && (
+            <>
+              {" "}
+              &mdash; filtered by{" "}
+              <span className="text-accent">[{activeTag}]</span>{" "}
+              <Link
+                href="/blog"
+                className="text-offwhite-dim underline hover:text-accent ml-1"
+              >
+                ✕ clear
+              </Link>
+            </>
+          )}
+        </p>
+      </header>
+
+      {years.map((year) => (
+        <section key={year} className="mb-16">
+          <div className="flex items-center gap-2 mb-6 font-mono text-xs text-offwhite-dim">
+            <span className="text-accent">▸</span>
+            <span>{year}</span>
+            <span className="flex-1 border-t border-border-subtle mx-2" />
+            <span>{String(grouped[year].length).padStart(2, "0")}</span>
           </div>
-        </div>
-        <div>
-          <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-export default async function Page() {
-  const { isEnabled } = draftMode();
-  const allPosts = await getAllPosts(isEnabled);
-  const heroPost = allPosts[0];
-  const morePosts = allPosts.slice(1);
+          <div className="flex flex-col">
+            {grouped[year].map((post) => {
+              const readTime = estimateReadTime(post.body);
+              return (
+                <div
+                  key={post.id}
+                  className="relative feed-row group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4 py-4 px-3 -mx-3"
+                >
+                  <Link href={`/post/${post.slug}`} className="absolute inset-0 z-0" aria-label={post.title} />
+                  <span className="font-mono text-xs text-offwhite-dim whitespace-nowrap shrink-0">
+                    {formatDate(Number(post.created_at))}
+                  </span>
 
-  return (
-    <div className="container mx-auto px-5">
-      <Intro />
-      {heroPost && (
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
-        />
+                  <span className="font-display text-lg md:text-xl flex-1 group-hover:text-accent transition-colors leading-tight">
+                    {post.title}
+                  </span>
+
+                  {post.tags && (
+                    <Link
+                      href={`/blog?tag=${encodeURIComponent(post.tags)}`}
+                      className="relative z-10 font-mono text-xs text-accent opacity-50 whitespace-nowrap hidden md:inline hover:opacity-100 transition-opacity"
+                    >
+                      [{post.tags}]
+                    </Link>
+                  )}
+
+                  <span className="font-mono text-xs text-offwhite-dim whitespace-nowrap shrink-0 hidden sm:inline">
+                    {String(readTime).padStart(2, "0")} MIN
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      {years.length === 0 && (
+        <p className="font-mono text-sm text-offwhite-dim py-16 text-center">
+          No transmissions found.
+        </p>
       )}
-      <MoreStories morePosts={morePosts} />
-      <Footer mainPage={false} />
+
+      <SystemStatus />
     </div>
   );
 }

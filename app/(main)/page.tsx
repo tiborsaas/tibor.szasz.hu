@@ -130,7 +130,10 @@ export default async function Page() {
 
               <div className="font-mono text-xs text-offwhite-dim mt-6 flex items-center justify-between">
                 <span>READ_TIME // {String(estimateReadTime(featuredPost.body)).padStart(2, "0")} MIN</span>
-                <span className="text-accent group-hover:translate-x-1 transition-transform inline-block">→</span>
+                <Link
+                  href={`/post/${featuredPost.slug}`}
+                  className="relative z-10 text-accent inline-block transition-all duration-200 group-hover:translate-x-1 hover:scale-125 hover:text-white"
+                >→</Link>
               </div>
             </div>
           </div>

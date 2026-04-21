@@ -147,6 +147,7 @@
 
 /* Feed row hover */
 .feed-row {
+  background-color: #0a0a0a;
   border-bottom: 1px solid rgba(224, 224, 224, 0.08);
   transition:
     background-color 0.2s ease,
@@ -154,7 +155,7 @@
 }
 
 .feed-row:hover {
-  background-color: rgba(0, 255, 65, 0.04);
+  background-color: #111111;
   border-color: rgba(0, 255, 65, 0.2);
 }
 

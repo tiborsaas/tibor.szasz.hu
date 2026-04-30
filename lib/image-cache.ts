@@ -5,9 +5,8 @@ import crypto from "crypto";
 const CACHE_DIR = "/tmp/image-cache";
 const INDEX_FILE = path.join(CACHE_DIR, "index.json");
 
-const ALLOWED_HOST = "instant-storage.s3.us-east-2.amazonaws.com";
-
 type CacheEntry = { hash: string; contentType: string };
+/** Maps InstantDB file ID → cached content hash + content-type. */
 type CacheIndex = Record<string, CacheEntry>;
 
 function ensureCacheDir(): void {
@@ -28,48 +27,40 @@ function writeIndex(index: CacheIndex): void {
     fs.writeFileSync(INDEX_FILE, JSON.stringify(index));
 }
 
-/** Returns true if the URL is a permitted InstantDB storage URL. */
-export function isAllowedImageUrl(url: string): boolean {
-    try {
-        const parsed = new URL(url);
-        return parsed.protocol === "https:" && parsed.hostname === ALLOWED_HOST;
-    } catch {
-        return false;
-    }
-}
-
-/** Returns the proxy URL for a given image URL, to be used in <img src>. */
-export function cachedImageUrl(url: string): string {
-    return `/api/image?url=${encodeURIComponent(url)}`;
+/** Returns the proxy URL for a given InstantDB file ID, for use in <img src>. */
+export function cachedImageUrl(fileId: string): string {
+    return `/api/image?id=${encodeURIComponent(fileId)}`;
 }
 
 /**
- * Returns the cached image data for the given URL, or null on a cache miss.
- * Removes stale index entries where the cached file has been deleted.
+ * Returns cached image data for the given InstantDB file ID, or null on miss.
+ * Removes stale index entries whose cached file has been evicted from /tmp.
  */
 export async function getCachedImage(
-    url: string
+    fileId: string
 ): Promise<{ data: Buffer; contentType: string } | null> {
     ensureCacheDir();
     const index = readIndex();
-    const entry = index[url];
+    const entry = index[fileId];
     if (entry) {
         const filePath = path.join(CACHE_DIR, entry.hash);
         if (fs.existsSync(filePath)) {
             return { data: fs.readFileSync(filePath), contentType: entry.contentType };
         }
-        // Stale entry — file was cleared from /tmp; remove it and re-fetch below.
-        delete index[url];
+        // Stale entry — file was cleared from /tmp; remove it so we re-fetch below.
+        delete index[fileId];
         writeIndex(index);
     }
     return null;
 }
 
 /**
- * Downloads the image, stores it on disk keyed by its SHA-256 content hash,
- * updates the URL→hash index, and returns the image data.
+ * Downloads the image from the given upstream URL, stores it on disk keyed by
+ * its SHA-256 content hash, records the file ID → hash mapping in the index,
+ * and returns the image data.
  */
 export async function fetchAndCacheImage(
+    fileId: string,
     url: string
 ): Promise<{ data: Buffer; contentType: string }> {
     ensureCacheDir();
@@ -87,11 +78,17 @@ export async function fetchAndCacheImage(
     const filePath = path.join(CACHE_DIR, hash);
 
     if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, data);
+        // Use 'wx' flag to avoid overwriting if another request races to write the same file.
+        try {
+            fs.writeFileSync(filePath, data, { flag: "wx" });
+        } catch (err: unknown) {
+            // EEXIST means another concurrent request already wrote it — that's fine.
+            if ((err as NodeJS.ErrnoException).code !== "EEXIST") throw err;
+        }
     }
 
     const index = readIndex();
-    index[url] = { hash, contentType };
+    index[fileId] = { hash, contentType };
     writeIndex(index);
 
     return { data, contentType };

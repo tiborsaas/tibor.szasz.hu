@@ -1,21 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAllowedImageUrl, getCachedImage, fetchAndCacheImage } from "@/lib/image-cache";
+import { getCachedImage, fetchAndCacheImage } from "@/lib/image-cache";
+import { serverDb } from "@/lib/server-db";
 
 export async function GET(request: NextRequest) {
-    const url = request.nextUrl.searchParams.get("url");
+    const fileId = request.nextUrl.searchParams.get("id");
 
-    if (!url) {
-        return new NextResponse("Missing url parameter", { status: 400 });
+    if (!fileId) {
+        return new NextResponse("Missing id parameter", { status: 400 });
     }
 
-    if (!isAllowedImageUrl(url)) {
-        return new NextResponse("Invalid image URL", { status: 400 });
+    // Resolve the upstream URL from the InstantDB file record.
+    const data = await serverDb.query({
+        $files: { $: { where: { id: fileId } } },
+    });
+    const file = (data.$files as Array<{ id: string; url?: string }>)?.[0];
+
+    if (!file?.url) {
+        return new NextResponse("File not found", { status: 404 });
     }
 
     try {
-        let image = await getCachedImage(url);
+        let image = await getCachedImage(fileId);
         if (!image) {
-            image = await fetchAndCacheImage(url);
+            image = await fetchAndCacheImage(fileId, file.url as string);
         }
 
         return new NextResponse(image.data, {

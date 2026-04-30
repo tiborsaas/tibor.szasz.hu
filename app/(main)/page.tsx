@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { serverDb } from "@/lib/server-db";
+import { cachedImageUrl } from "@/lib/image-cache";
 import { SystemStatus } from "../components/SystemStatus";
 
 function estimateReadTime(body: string): number {
@@ -82,7 +83,7 @@ export default async function Page() {
               {featuredPost.cover_image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={featuredPost.cover_image}
+                  src={cachedImageUrl(featuredPost.cover_image)}
                   alt={`Cover for ${featuredPost.title}`}
                   className="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                 />

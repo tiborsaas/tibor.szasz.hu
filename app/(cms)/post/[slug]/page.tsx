@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { YooptaViewer } from "@/app/components/YooptaViewer";
 import { serverDb } from "@/lib/server-db";
+import { cachedImageUrl } from "@/lib/image-cache";
 import { SystemStatus } from "@/app/components/SystemStatus";
 
 function formatDate(timestamp: number): string {
@@ -76,7 +77,7 @@ export default async function PostPage({
           <div className="border border-border-subtle overflow-hidden max-h-[40vh]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={post.cover_image}
+              src={cachedImageUrl(post.cover_image)}
               alt={`Cover image for ${post.title}`}
               className="w-full object-cover max-h-[40vh]"
             />

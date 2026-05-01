@@ -43,6 +43,14 @@ export default async function PostPage({
     );
   }
 
+  let coverUrl: string | undefined;
+  if (post.cover_image_id) {
+    const fileData = await serverDb.query({
+      $files: { $: { where: { id: post.cover_image_id } } },
+    });
+    coverUrl = fileData.$files?.[0]?.url ?? undefined;
+  }
+
   const readTime = estimateReadTime(post.body);
 
   return (
@@ -71,12 +79,12 @@ export default async function PostPage({
       </h1>
 
       {/* Hero image - constrained to 40vh with brutalist offset */}
-      {post.cover_image && (
+      {coverUrl && (
         <div className="mb-16 relative">
           <div className="border border-border-subtle overflow-hidden max-h-[40vh]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={post.cover_image}
+              src={coverUrl}
               alt={`Cover image for ${post.title}`}
               className="w-full object-cover max-h-[40vh]"
             />

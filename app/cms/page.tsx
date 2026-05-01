@@ -10,6 +10,7 @@ function PostList() {
     const router = useRouter();
     const { isLoading, error, data } = db.useQuery({
         blog: { $: { order: { serverCreatedAt: "desc" } } },
+        $files: { $: { where: { path: { $like: "blog/%" } }, order: { serverCreatedAt: "desc" } } },
     });
 
     async function handleDelete(id: string, title: string) {
@@ -26,6 +27,9 @@ function PostList() {
     }
 
     const posts = data?.blog ?? [];
+    const fileMap = Object.fromEntries(
+        (data?.$files ?? []).map((f) => [f.id, f.url ?? ""])
+    );
 
     return (
         <div>
@@ -53,10 +57,10 @@ function PostList() {
                             key={post.id}
                             className="flex items-start gap-4 px-5 py-4 hover:bg-gray-50"
                         >
-                            {post.cover_image && (
+                            {post.cover_image_id && (
                                 // eslint-disable-next-line @next/next/no-img-element
                                 <img
-                                    src={post.cover_image}
+                                    src={fileMap[post.cover_image_id] ?? ""}
                                     alt=""
                                     className="w-16 h-12 rounded object-cover flex-shrink-0"
                                 />

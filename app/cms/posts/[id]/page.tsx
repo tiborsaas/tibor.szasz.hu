@@ -32,7 +32,7 @@ function EditPostInner({ id }: { id: string }) {
                 slug: post.slug,
                 excerpt: post.excerpt,
                 tags: post.tags,
-                cover_image: post.cover_image,
+                cover_image_id: post.cover_image_id,
                 body: post.body,
                 created_at: typeof post.created_at === "number" ? post.created_at : undefined,
             }}

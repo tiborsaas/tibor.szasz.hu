@@ -15,7 +15,7 @@ const _schema = i.schema({
         }),
         "blog": i.entity({
             "body": i.string(),
-            "cover_image": i.string().optional(),
+            "cover_image_id": i.string().optional(),
             "created_at": i.date(),
             "excerpt": i.string().optional(),
             "slug": i.string().unique().indexed(),

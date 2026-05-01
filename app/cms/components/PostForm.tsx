@@ -44,7 +44,7 @@ interface PostFormProps {
         slug: string;
         excerpt?: string;
         tags?: string;
-        cover_image?: string;
+        cover_image_id?: string;
         body: string;
         created_at?: number;
     };
@@ -58,7 +58,7 @@ export function PostForm({ initialData }: PostFormProps) {
     const [slug, setSlug] = useState(initialData?.slug ?? "");
     const [excerpt, setExcerpt] = useState(initialData?.excerpt ?? "");
     const [tags, setTags] = useState(initialData?.tags ?? "");
-    const [coverImage, setCoverImage] = useState(initialData?.cover_image ?? "");
+    const [coverImage, setCoverImage] = useState(initialData?.cover_image_id ?? "");
     const [body, setBody] = useState(initialData?.body ?? "");
     const [createdAt, setCreatedAt] = useState(tsToDatetimeLocal(initialData?.created_at));
     const [saving, setSaving] = useState(false);
@@ -85,7 +85,7 @@ export function PostForm({ initialData }: PostFormProps) {
                 slug: slug.trim(),
                 excerpt: excerpt.trim(),
                 tags: tags.trim(),
-                cover_image: coverImage,
+                cover_image_id: coverImage,
                 body,
                 updated_at: Date.now(),
             };

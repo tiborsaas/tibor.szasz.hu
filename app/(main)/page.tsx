@@ -34,6 +34,23 @@ export default async function Page() {
   const featuredPost = allPosts[0] ?? null;
   const posts = allPosts.slice(1, 8);
 
+  const coverIds = allPosts
+    .map((p) => p.cover_image_id)
+    .filter((id): id is string => !!id);
+  const fileMap: Record<string, string> = {};
+  if (coverIds.length > 0) {
+    const fileData = await serverDb.query({
+      $files: { $: { where: { id: { $in: coverIds } } } },
+    });
+    for (const f of fileData.$files ?? []) {
+      if (f.url) fileMap[f.id] = f.url;
+    }
+  }
+
+  const featuredCoverUrl = featuredPost?.cover_image_id
+    ? fileMap[featuredPost.cover_image_id]
+    : undefined;
+
   return (
     <div className="py-16">
       {/* Header */}
@@ -79,10 +96,10 @@ export default async function Page() {
             <Link href={`/post/${featuredPost.slug}`} className="absolute inset-0 z-0" aria-label={featuredPost.title} />
             {/* Image column */}
             <div className="relative overflow-hidden micro-grid-bg min-h-[220px] md:min-h-[280px] bg-ink-light">
-              {featuredPost.cover_image ? (
+              {featuredCoverUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={featuredPost.cover_image}
+                  src={featuredCoverUrl}
                   alt={`Cover for ${featuredPost.title}`}
                   className="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                 />

@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 
 interface ImagePickerProps {
     value?: string;
-    onChange: (url: string) => void;
+    onChange: (id: string) => void;
 }
 
 export function ImagePicker({ value, onChange }: ImagePickerProps) {
@@ -30,13 +30,12 @@ export function ImagePicker({ value, onChange }: ImagePickerProps) {
                 contentType: file.type,
             });
             if (uploadData) {
-                // Fetch the url from uploaded file record
                 const { data: fileData } = await db.queryOnce({
                     $files: { $: { where: { path } } },
                 });
                 const uploaded = fileData?.$files?.[0];
-                if (uploaded?.url) {
-                    onChange(uploaded.url);
+                if (uploaded?.id) {
+                    onChange(uploaded.id);
                     setOpen(false);
                 }
             }
@@ -53,7 +52,7 @@ export function ImagePicker({ value, onChange }: ImagePickerProps) {
             {value && (
                 <div className="relative w-48 h-28 rounded overflow-hidden border border-gray-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={value} alt="Cover" className="w-full h-full object-cover" />
+                    <img src={images.find((img) => img.id === value)?.url ?? ""} alt="Cover" className="w-full h-full object-cover" />
                     <button
                         type="button"
                         onClick={() => onChange("")}
@@ -95,12 +94,10 @@ export function ImagePicker({ value, onChange }: ImagePickerProps) {
                                     type="button"
                                     key={img.id}
                                     onClick={() => {
-                                        if (img.url) {
-                                            onChange(img.url);
-                                            setOpen(false);
-                                        }
+                                        onChange(img.id);
+                                        setOpen(false);
                                     }}
-                                    className={`relative rounded overflow-hidden border-2 transition-all ${value === img.url
+                                    className={`relative rounded overflow-hidden border-2 transition-all ${value === img.id
                                             ? "border-black"
                                             : "border-transparent hover:border-gray-400"
                                         }`}

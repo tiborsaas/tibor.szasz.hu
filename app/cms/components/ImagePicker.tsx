@@ -98,8 +98,8 @@ export function ImagePicker({ value, onChange }: ImagePickerProps) {
                                         setOpen(false);
                                     }}
                                     className={`relative rounded overflow-hidden border-2 transition-all ${value === img.id
-                                            ? "border-black"
-                                            : "border-transparent hover:border-gray-400"
+                                        ? "border-black"
+                                        : "border-transparent hover:border-gray-400"
                                         }`}
                                 >
                                     {/* eslint-disable-next-line @next/next/no-img-element */}

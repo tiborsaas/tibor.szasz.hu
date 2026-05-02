@@ -52,7 +52,7 @@ export function ImagePicker({ value, onChange }: ImagePickerProps) {
             {value && (
                 <div className="relative w-48 h-28 rounded overflow-hidden border border-gray-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={images.find((img) => img.id === value)?.url ?? ""} alt="Cover" className="w-full h-full object-cover" />
+                    {images.length && <img src={images.find((img) => img.id === value)?.url ?? ""} alt="Cover" className="w-full h-full object-cover" />}
                     <button
                         type="button"
                         onClick={() => onChange("")}

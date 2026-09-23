@@ -1,50 +1,52 @@
 "use client";
 
-import { use } from "react";
-import { db } from "@/lib/db";
-import { AuthGuard } from "../../components/AuthGuard";
+import { use, useEffect, useState } from "react";
 import { PostForm } from "../../components/PostForm";
 
-function EditPostInner({ id }: { id: string }) {
-    const { isLoading, error, data } = db.useQuery({
-        blog: { $: { where: { id } } },
-    });
-
-    if (isLoading) {
-        return <p className="text-gray-400">Loading…</p>;
-    }
-
-    if (error) {
-        return <p className="text-red-500">Error: {error.message}</p>;
-    }
-
-    const post = data?.blog?.[0];
-
-    if (!post) {
-        return <p className="text-gray-500">Post not found.</p>;
-    }
-
-    return (
-        <PostForm
-            initialData={{
-                id: post.id,
-                title: post.title,
-                slug: post.slug,
-                excerpt: post.excerpt,
-                tags: post.tags,
-                cover_image_id: post.cover_image_id,
-                body: post.body,
-                created_at: typeof post.created_at === "number" ? post.created_at : undefined,
-            }}
-        />
-    );
+interface PostData {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  tags?: string;
+  cover_image?: string;
+  cover_image_id?: string;
+  body: string;
+  created_at?: number;
 }
 
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
-    return (
-        <AuthGuard>
-            <EditPostInner id={id} />
-        </AuthGuard>
-    );
+export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const [post, setPost] = useState<PostData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        const res = await fetch(`/api/cms/posts/${encodeURIComponent(id)}`);
+        const data = await res.json();
+        if (data.post) {
+          setPost(data.post);
+        } else {
+          setError(data.error || "Post not found");
+        }
+      } catch (err: any) {
+        setError(err.message || "Failed to load post");
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPost();
+  }, [id]);
+
+  if (loading) {
+    return <p className="text-gray-400 p-6">Loading transmission…</p>;
+  }
+
+  if (error || !post) {
+    return <p className="text-red-500 p-6">Error: {error || "Post not found"}</p>;
+  }
+
+  return <PostForm initialData={post} />;
 }

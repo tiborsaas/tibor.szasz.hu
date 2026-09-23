@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { serverDb } from "@/lib/server-db";
+import { getAllPosts } from "@/lib/posts";
 import { SystemStatus } from "../../components/SystemStatus";
 
 function formatDate(timestamp: number): string {
@@ -19,16 +19,10 @@ export default async function ArchivePage({
 }) {
   const { tag: activeTag } = await searchParams;
 
-  const data = await serverDb.query({
-    blog: {
-      $: { order: { serverCreatedAt: "desc" } },
-    },
-  });
-
-  let posts = data.blog ?? [];
+  let posts = await getAllPosts();
   if (activeTag) {
     posts = posts.filter(
-      (p) => p.tags?.toLowerCase() === activeTag.toLowerCase()
+      (p) => p.tags?.toLowerCase().includes(activeTag.toLowerCase())
     );
   }
 
@@ -78,7 +72,7 @@ export default async function ArchivePage({
               const readTime = estimateReadTime(post.body);
               return (
                 <div
-                  key={post.id}
+                  key={post.slug}
                   className="relative feed-row group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4 py-4 px-3 -mx-3"
                 >
                   <Link href={`/post/${post.slug}`} className="absolute inset-0 z-0" aria-label={post.title} />

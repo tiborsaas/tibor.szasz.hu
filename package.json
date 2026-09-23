@@ -10,8 +10,6 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.17.1",
     "@contentful/rich-text-types": "^16.2.1",
-    "@instantdb/admin": "^1.0.11",
-    "@instantdb/react": "^1.0.11",
     "@tailwindcss/typography": "0.5.9",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",
@@ -33,6 +31,8 @@
     "contentful-import": "^9.0.4",
     "date-fns": "2.30.0",
     "glslCanvas": "^0.2.6",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.13",
     "next": "^16.2.3",
     "postcss": "8.4.31",
     "react": "^18.2.0",

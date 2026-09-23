@@ -2,11 +2,10 @@
 author: Tibor Szasz
 date: 2019-10-23
 hero: ./raymarching.png
-excerpt: ''
+excerpt: ""
 draft: false
 published: true
 title: Shader learning syllabus
-
 ---
 
 ## Recommended materials and libraries for Shader learning
@@ -18,7 +17,6 @@ The cover image for this blog post is called **Refracted brutalism** by [evvvvil
 and it was with 96 lines of code only. It's rather compressed though, and could look intimidating at first, but you can unpack this step by step.
 
 There's a conceptual difference when drawing with HTML canvas and painting with a pixel shader.The main distinction is executing shaders is a massively parallel process. This comes with an interesting conseqence that
-
 
 Link to shader: https://www.shadertoy.com/view/wt33RN
 
@@ -54,12 +52,12 @@ I use it with Parcel to enable live reload with a simple html backbone.
 /**
  * Shader loading
  */
-import GlslCanvas from 'glslCanvas';
-import shader from './hello-world.glsl';
+import GlslCanvas from "glslCanvas";
+import shader from "./hello-world.glsl";
 
 const width = 800;
 const height = 480;
-const canvas = document.createElement('canvas');
+const canvas = document.createElement("canvas");
 
 canvas.width = width / window.devicePixelRatio;
 canvas.height = height / window.devicePixelRatio;
@@ -88,13 +86,11 @@ It's developed by demoscene veteran [Gargaj](http://www.pouet.net/user.php?who=1
 
 ![](./bonzomatic.jpg)
 
-
 ## Reference
 
 Don't forget to RTFM when in doubt how GLSL functions work:
 
 https://www.khronos.org/opengles/sdk/docs/manglsl/docbook4/
-
 
 # Syllabus
 
@@ -106,7 +102,6 @@ https://thebookofshaders.com/
 
 To get started, The Book of Shaders by **Patricio Gonzalez Vivo** and **Jen Lowe** is a great point to get familiar with the basic concepts it didn't expand in the intro section. It's available in 10 languages and has an interactive code editor in each chapter.
 
-
 ## 2) The Art of Code YouTube channel
 
 https://www.youtube.com/channel/UCcAlTqd9zID6aNX3TzwxJXg
@@ -117,3 +112,4 @@ He explains advanced concepts like it's a walk in the park, like raymarching. Th
 
 ## Exercises
 
+@todo: finish this

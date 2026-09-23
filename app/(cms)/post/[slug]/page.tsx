@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { YooptaViewer } from "@/app/components/YooptaViewer";
-import { serverDb } from "@/lib/server-db";
+import { getPostBySlug } from "@/lib/posts";
+import { MarkdownViewer } from "@/app/components/MarkdownViewer";
 import { SystemStatus } from "@/app/components/SystemStatus";
 
 function formatDate(timestamp: number): string {
@@ -19,13 +19,7 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const data = await serverDb.query({
-    blog: {
-      $: { where: { slug } },
-    },
-  });
-
-  const post = data.blog?.[0];
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return (
@@ -43,14 +37,7 @@ export default async function PostPage({
     );
   }
 
-  let coverUrl: string | undefined;
-  if (post.cover_image_id) {
-    const fileData = await serverDb.query({
-      $files: { $: { where: { id: post.cover_image_id } } },
-    });
-    coverUrl = fileData.$files?.[0]?.url ?? undefined;
-  }
-
+  const coverUrl = post.cover_image;
   const readTime = estimateReadTime(post.body);
 
   return (
@@ -78,7 +65,7 @@ export default async function PostPage({
         {post.title}
       </h1>
 
-      {/* Hero image - constrained to 40vh with brutalist offset */}
+      {/* Hero image */}
       {coverUrl && (
         <div className="mb-16 relative">
           <div className="border border-border-subtle overflow-hidden max-h-[40vh]">
@@ -97,7 +84,7 @@ export default async function PostPage({
       {/* Body */}
       <div className="max-w-2xl mx-auto post-body">
         <div className="prose prose-lg prose-brutalist font-body">
-          <YooptaViewer body={post.body} />
+          <MarkdownViewer content={post.body} />
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { serverDb } from "@/lib/server-db";
+import { getAllPosts } from "@/lib/posts";
 import { SystemStatus } from "../components/SystemStatus";
 
 function estimateReadTime(body: string): number {
@@ -24,32 +24,11 @@ function MicroTicks({ count = 12 }: { count?: number }) {
 }
 
 export default async function Page() {
-  const data = await serverDb.query({
-    blog: {
-      $: { order: { serverCreatedAt: "desc" }, limit: 8 },
-    },
-  });
-
-  const allPosts = data.blog ?? [];
+  const allPosts = await getAllPosts();
   const featuredPost = allPosts[0] ?? null;
   const posts = allPosts.slice(1, 8);
 
-  const coverIds = allPosts
-    .map((p) => p.cover_image_id)
-    .filter((id): id is string => !!id);
-  const fileMap: Record<string, string> = {};
-  if (coverIds.length > 0) {
-    const fileData = await serverDb.query({
-      $files: { $: { where: { id: { $in: coverIds } } } },
-    });
-    for (const f of fileData.$files ?? []) {
-      if (f.url) fileMap[f.id] = f.url;
-    }
-  }
-
-  const featuredCoverUrl = featuredPost?.cover_image_id
-    ? fileMap[featuredPost.cover_image_id]
-    : undefined;
+  const featuredCoverUrl = featuredPost?.cover_image;
 
   return (
     <div className="py-16">
@@ -174,7 +153,7 @@ export default async function Page() {
             const readTime = estimateReadTime(post.body);
             return (
               <div
-                key={post.id}
+                key={post.slug}
                 className="relative feed-row group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4 py-5 px-3 -mx-3"
               >
                 <Link href={`/post/${post.slug}`} className="absolute inset-0 z-0" aria-label={post.title} />

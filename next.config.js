@@ -2,12 +2,6 @@
 module.exports = {
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "instant-storage.s3.us-east-2.amazonaws.com",
-      },
-    ],
   },
   turbopack: {
     rules: {

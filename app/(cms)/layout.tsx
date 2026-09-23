@@ -1,7 +1,5 @@
 import "../globals.css";
 import { Playfair_Display, Lora, JetBrains_Mono } from "next/font/google";
-import { getUnverifiedUserFromInstantCookie } from "@instantdb/react/nextjs";
-import { InstantProvider } from "../components/InstantProvider";
 import { Nav } from "../components/Nav";
 
 const playfair = Playfair_Display({
@@ -28,27 +26,21 @@ export const metadata = {
     "A blog, a journal to infrequently offload some random stuff from my mind.",
 };
 
-export default async function CMSLayout({
+export default function CMSLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getUnverifiedUserFromInstantCookie(
-    process.env.NEXT_PUBLIC_INSTANT_APP_ID!
-  );
-
   return (
     <html
       lang="en"
       className={`${playfair.variable} ${lora.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-ink text-offwhite">
-        <InstantProvider user={user}>
-          <div className="max-w-4xl mx-auto px-6">
-            <Nav />
-            <main>{children}</main>
-          </div>
-        </InstantProvider>
+        <div className="max-w-4xl mx-auto px-6">
+          <Nav />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );
